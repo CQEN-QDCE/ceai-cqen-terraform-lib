@@ -13,7 +13,7 @@ output "cluster_rds_arn" {
     description = "ARN du cluster Aurora MySQL dans RDS"
 }
 
-output "cluster_rds_name" {
-    value = aws_rds_cluster.aurora_mysql_cluster.name
-    description = "Nom du cluster Aurora MySQL dans RDS"
+output "cluster_rds_id" {
+    value = aws_rds_cluster.aurora_mysql_cluster.id
+    description = "Id du cluster Aurora MySQL dans RDS"
 }
