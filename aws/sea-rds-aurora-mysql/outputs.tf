@@ -3,9 +3,14 @@ output "endpoint" {
     description = "Point de terminaison du cluster Aurora MySQL"
 }
 
-output "secretsmanager_arn" {
-    value = "${aws_secretsmanager_secret.rds_secret.arn}"
-    description = "ARN du secret contenant le mot de passe de la base de donnée"
+output "db_user_secret" {
+    value = "${aws_secretsmanager_secret.rds_secret.arn}:DB_USER::"
+    description = "Référence vers le secret contenant le nom d'usager administrateur de la base de donnée MySQL"
+}
+
+output "db_password_secret" {
+    value = "${aws_secretsmanager_secret.rds_secret.arn}:DB_PASS::"
+    description = "Référence vers le secret contenant le mot de passe administrateur de la base de donnée MySQL"
 }
 
 output "cluster_rds_arn" {

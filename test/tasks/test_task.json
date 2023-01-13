@@ -1,0 +1,52 @@
+[
+    {
+      "name": "${container_name}",
+      "image": "${image}",
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${awslogs_group}",
+          "awslogs-region": "ca-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "portMappings": [
+        {
+          "containerPort": ${container_port},
+          "hostPort": ${container_port},
+          "protocol": "tcp"
+        }
+      ],
+      "healthCheck": {
+        "retries": 5,
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:${container_port}/${healthckeck_path} || exit 1"
+        ],
+        "timeout": 15,
+        "interval": 30,
+        "startPeriod": 300
+      },
+      "environment": [
+        {
+          "name": "ENVIRONMENT",
+          "value": "${environment}"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "info"
+        }
+      ],
+      "secrets": [
+          {
+            "name": "MYSQL_USER",
+            "valueFrom": "${mysql_user_secret}"
+          },
+          {
+            "name": "MYSQL_PASSWORD",
+            "valueFrom": "${mysql_user_password}"
+          }
+        ]
+    }
+]
