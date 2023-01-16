@@ -1,6 +1,7 @@
 module "sea_network" {
   source = "../aws/sea-network"
   
+  aws_profile = var.aws_profile
   workload_account_type = "Dev"
 }
 
@@ -50,5 +51,5 @@ module "ecs_service" {
   task_memory = 1
   task_count = 1
   task_healthcheck_path = "/healthcheck"
-  task_healthcheck_protocol = "HTTP" 
+  task_healthcheck_protocol = "HTTP"
 }

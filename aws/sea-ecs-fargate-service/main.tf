@@ -34,7 +34,7 @@ resource "aws_lb" "alb" {
   subnets         = var.sea_network.app_subnets.ids
   security_groups = [var.sea_network.app_security_group.id]
   access_logs {
-    bucket  = "${local.name}-internal-alb-access-logs"
+    bucket  = var.sea_network.elb_access_log_bucket_name
     prefix  = "${data.aws_caller_identity.current.account_id}/elb-${local.name}-alb"
     enabled = true
   }

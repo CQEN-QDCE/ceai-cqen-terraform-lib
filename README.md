@@ -12,6 +12,11 @@ Librairie de modules Terraform réutilisables pour concevoir des déploiements d
 
 ## Comment utiliser ces modules ?
 
+### Prérequis
+
+* Linux/MacOs/Cygwin
+* jq
+
 https://developer.hashicorp.com/terraform/language/modules/sources#github
 
 TODO 

@@ -26,6 +26,10 @@ output "data_security_group" {
   value   = data.aws_security_group.data_security_group
 }
 
+output "elb_access_log_bucket_name" {
+  value   = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
+}
+
 output "all" {
     value = {
         shared_vpc = data.aws_vpc.shared_vpc
@@ -35,5 +39,6 @@ output "all" {
         web_security_group = data.aws_security_group.web_security_group
         app_security_group = data.aws_security_group.app_security_group
         data_security_group = data.aws_security_group.data_security_group
+        elb_access_log_bucket_name = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
     }
 }
