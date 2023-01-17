@@ -1,6 +1,11 @@
 output "endpoint" {
-    value = "${aws_rds_cluster.aurora_mysql_cluster.endpoint}"
+    value = aws_rds_cluster.aurora_mysql_cluster.endpoint
     description = "Point de terminaison du cluster Aurora MySQL"
+}
+
+output "db_name" {
+    value = aws_rds_cluster.aurora_mysql_cluster.database_name
+    description = "Nom de la base de donnée MySQL"
 }
 
 output "db_user_secret" {

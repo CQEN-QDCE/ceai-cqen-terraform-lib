@@ -2,7 +2,6 @@ locals {
   name = "${var.identifier}"
 }
 
-
 #-------------------------------------------------------------------------------
 # Application load balancer
 data "aws_caller_identity" "current" {}
