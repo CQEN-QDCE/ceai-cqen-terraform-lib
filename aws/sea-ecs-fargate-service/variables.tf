@@ -51,3 +51,9 @@ variable "internal_endpoint_protocol" {
   description = "Protocol utilisé par le endpoint interne du service."
   default = "HTTPS"
 }
+
+variable "volume_efs" {
+  description = "Volumes EFS à créer et attacher à la tâche."
+  type        = any
+  default     = {}
+}

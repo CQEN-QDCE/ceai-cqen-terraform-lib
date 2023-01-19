@@ -112,19 +112,61 @@ resource "aws_iam_policy_attachment" "iam_policy_attachment" {
 }
 
 #-------------------------------------------------------------------------------
+# EFS
+
+resource "aws_efs_file_system" "efs_fs" {
+  for_each    = var.volume_efs
+
+  performance_mode = "generalPurpose"
+  throughput_mode  = "bursting"
+  encrypted        = "true"
+  tags             = {
+      Name = each.value.name
+  }
+}
+
+resource "aws_efs_access_point" "efs_ap" {
+  for_each = aws_efs_file_system.efs_fs
+
+  file_system_id = each.value.id
+  tags = {
+      Name = each.value.tags_all.Name
+      file_system_id = each.value.id
+  }
+}
+
+#-------------------------------------------------------------------------------
 # Task Definition
 
 resource "aws_ecs_task_definition" "app_task" {
   family                   = local.name
-  container_definitions    = var.task_definition
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.task_vcpu
   memory                   = var.task_memory
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_execution_role.arn
+  container_definitions    = var.task_definition
 
-  #depends_on = [ aws_secretsmanager_secret_version.passbolt_app_secret ] TODO
+  dynamic "volume" {
+    for_each = aws_efs_access_point.efs_ap
+    content {
+      name = volume.value.tags_all.Name
+
+      efs_volume_configuration {
+        file_system_id          = volume.value.tags_all.file_system_id
+        transit_encryption      = "ENABLED"
+
+        authorization_config {
+          access_point_id = volume.value.id
+          iam             = "ENABLED"
+        }
+      }
+
+    }
+  }
+
+  #depends_on = [ aws_secretsmanager_secret_version.passbolt_app_secret ]
 }
 
 #-------------------------------------------------------------------------------

@@ -52,4 +52,10 @@ module "ecs_service" {
   task_count = 1
   task_healthcheck_path = "/healthcheck"
   task_healthcheck_protocol = "HTTP"
+  volume_efs = {
+    "test" = {
+      name = "test"
+      mount_path = "/opt/test/"
+    }
+  }
 }
