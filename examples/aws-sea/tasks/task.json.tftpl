@@ -18,6 +18,12 @@
           "protocol": "tcp"
         }
       ],
+      "mountPoints": [
+        {
+            "sourceVolume": "${test_volume_name}",
+            "containerPath": "${test_volume_path}"
+        }
+      ],
       "healthCheck": {
         "retries": 5,
         "command": [
