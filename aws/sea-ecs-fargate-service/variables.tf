@@ -53,7 +53,10 @@ variable "internal_endpoint_protocol" {
 }
 
 variable "volume_efs" {
-  description = "Volumes EFS à créer et attacher à la tâche."
-  type        = any
+  description = "Volumes EFS à créer et attacher à la tâche sous forme de map contenant un nom (name) et un chemin (mount_path)."
+  type = map(object({
+    name = string
+    mount_path = string
+  }))
   default     = {}
 }
