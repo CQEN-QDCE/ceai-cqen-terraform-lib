@@ -1,0 +1,3 @@
+aws_profile           = ""
+workload_account_type = "Dev"
+identifier            = "test"

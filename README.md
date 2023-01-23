@@ -15,13 +15,13 @@ Librairie de modules Terraform réutilisables pour concevoir des déploiements d
 ### Prérequis
 
 * Linux/MacOs/WSL
-* Client Terraform
-* Client AWS (Pour modules aws)
-* jq
+* [Client Terraform](https://learn.hashicorp.com/terraform/getting-started/install)
+* [Client AWS v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) (Pour modules aws)
+* [jq](https://stedolan.github.io/jq/download/)
 
 ### Importer les modules
 
-Importer le module vide `ceai-lib` pour importer le contenu du dépot Git. Vous pourrez par la suite référencer les modules via le chemin d'import Terraform: `./.terraform/{nom_module_import}/` .
+Importer le module vide `ceai-lib` pour importer le contenu du dépôt Git. Vous pourrez par la suite référencer les modules via le chemin d'import Terraform: `./.terraform/{nom_module_import}/` .
 
 Vous pouvez spécifier le tag de version de la librairie via le paramètre `ref`. Sinon vous obtenez la version la plus récente (non recommandé).
 
@@ -34,22 +34,12 @@ module "ceai-lib" {
 ```terraform
 module "sea_network" {
   source = "./.terraform/modules/ceai-lib/aws/sea-network"
-
-  aws_profile = var.aws_profile
-  workload_account_type = var.workload_account_type
 }
 ```
 
-module "sea_network" {
-  source = "../aws/sea-network"
-  
-  aws_profile = var.aws_profile
-  workload_account_type = var.workload_account_type
-}
-
 ### Exemples de déploiements
 
- * Conteneurs ECS avec Base de données Aurora MySQL dans AWS-SEA
+ * [AWS - Conteneur ECS avec Base de données Aurora MySQL](/examples/aws-sea/)
 
 
 ## Bonnes pratiques d'utilisation
@@ -67,7 +57,7 @@ Sur la machine qui exécute le déploiement, modifier le fichier` $HOME/.aws/con
 sso_start_url = [Url de connexion AWS SSO]
 sso_region = ca-central-1
 sso_account_id = [Numéro du compte]
-sso_role_name = [Nom du role que vous posséder sur ce compte]
+sso_role_name = [Nom du role que vous possédez sur ce compte]
 region = ca-central-1
 output = json
 ```
@@ -82,7 +72,7 @@ variable "aws_profile" {
 ```
 #### Identifier le type de compte SEA de travail utilisé
 
-Les modules pour les ressources à déployer dans SEA sont presques tous dépendant du module `sea-network`. Celui-ci doit connaitre le nom du OU du compte du travail (Préfix du VPC partagé). L'utilisation d'une variable est recommandée.
+Les modules pour les ressources à déployer dans SEA sont presque tous dépendant du module `sea-network`. Celui-ci doit connaitre le nom du *OU* du compte du travail (Préfix du VPC partagé). L'utilisation d'une variable est recommandée.
 
 ```terraform
 variable "workload_account_type" {
@@ -93,7 +83,7 @@ variable "workload_account_type" {
 
 ```terraform
 module "sea_network" {
-  source = "../aws/sea-network"
+  source = "./.terraform/modules/ceai-lib/aws/sea-network"
   
   aws_profile = var.aws_profile
   workload_account_type = var.workload_account_type
@@ -112,14 +102,14 @@ variable "system" {
 
 variable "environment" {
   type = string
-  description = "Nom de l'environnement du sytème déployé."
+  description = "Nom de l'environnement du système déployé."
 }
 ```
 Si vous utilisez les workspaces vous pouvez utiliser le nom de celui-ci comme valeur par défaut pour la variable `environment`
 ```terraform
 variable "environment" {
   type = string
-  description = "Nom de l'environnement du sytème déployé."
+  description = "Nom de l'environnement du système déployé."
   default = terraform.workspace
 }
 ```
@@ -142,9 +132,9 @@ provider "aws" {
 
 Ce projet est sous la Licence Libre du Québec - Permissive (LiLiQ-P) version 1.1.
 
-Référez-vous au fichier [LICENCE](LICENCE) pour plus de détails.
+Référez-vous au fichier [LICENSE](LICENSE) pour plus de détails.
 
 ## Références
 
-https://developer.hashicorp.com/terraform/language
-https://registry.terraform.io/providers/hashicorp/aws/latest/docs
+* https://developer.hashicorp.com/terraform/language
+* https://registry.terraform.io/providers/hashicorp/aws/latest/docs
