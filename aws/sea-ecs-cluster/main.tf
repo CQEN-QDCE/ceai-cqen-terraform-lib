@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = "${var.identifier}-ecs-cluster"
 }
 
 resource "aws_ecs_cluster" "cluster" {

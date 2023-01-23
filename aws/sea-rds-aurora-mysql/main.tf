@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = "${var.identifier}-aurora-mysql"
 }
 
 data "aws_kms_key" "rds" {
@@ -62,7 +62,7 @@ resource "aws_iam_role_policy_attachment" "rds_monitoring_role_policy_attach" {
 }
 
 resource "aws_rds_cluster" "aurora_mysql_cluster" {
-  cluster_identifier                  = "${local.name}"
+  cluster_identifier                  = "${local.name}-rds-cluster"
   engine                              = "aurora-mysql"
   engine_mode                         = "provisioned"
   engine_version                      = "8"
@@ -90,7 +90,7 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "aurora_mysql_instance" {
-  identifier_prefix                     = "${local.name}-instance-"
+  identifier_prefix                     = "${local.name}-rds-instance-"
   cluster_identifier                    = aws_rds_cluster.aurora_mysql_cluster.id
   instance_class                        = "db.serverless"
   engine                                = aws_rds_cluster.aurora_mysql_cluster.engine

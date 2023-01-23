@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = "${var.identifier}-ecs-service"
 }
 
 #-------------------------------------------------------------------------------
@@ -7,7 +7,7 @@ locals {
 data "aws_caller_identity" "current" {}
 
 resource "aws_lb_target_group" "alb_tg" {
-  name     = "${local.name}"
+  name     = "${local.name}-targetgroup"
   port     = var.task_port
   protocol = var.task_protocol
   vpc_id   = var.sea_network.shared_vpc.id
@@ -28,7 +28,7 @@ resource "aws_lb_target_group" "alb_tg" {
 }
 
 resource "aws_lb" "alb" {
-  name            = "${local.name}"
+  name            = "${local.name}-alb"
   internal        = true
   subnets         = var.sea_network.app_subnets.ids
   security_groups = [var.sea_network.app_security_group.id]
@@ -63,8 +63,8 @@ data "aws_iam_policy_document" "ecs_task_execution_role_policy_doc" {
 } 
 
 resource "aws_iam_policy" "policy" {
-  name        = "${local.name}-EcsTaskExecPolicy"
-  description = "A ecs task policy"
+  name        = "${local.name}-TaskExecPolicy"
+  description = "Policy pour execution task ECS"
   policy      =  <<EOF
 {
     "Version": "2012-10-17",
@@ -100,13 +100,13 @@ EOF
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name  = "${local.name}-EcsTaskExecRole"
+  name  = "${local.name}-TaskExecRole"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_role_policy_doc.json
   path               = "/${var.identifier}/"
 }
 
 resource "aws_iam_policy_attachment" "iam_policy_attachment" {
-  name       = "${local.name}-EcsTaskExecAttachement"
+  name       = "${local.name}-TaskExecAttachement"
   roles      = [aws_iam_role.ecs_task_execution_role.name]
   policy_arn = aws_iam_policy.policy.arn
 }
@@ -139,7 +139,7 @@ resource "aws_efs_access_point" "efs_ap" {
 # Task Definition
 
 resource "aws_ecs_task_definition" "app_task" {
-  family                   = local.name
+  family                   = "${local.name}-tasks"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.task_vcpu
