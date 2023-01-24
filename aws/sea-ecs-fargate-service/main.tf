@@ -7,7 +7,7 @@ locals {
 data "aws_caller_identity" "current" {}
 
 resource "aws_lb_target_group" "alb_tg" {
-  name     = "${local.name}-targetgroup"
+  name     = "${local.name}-tg"
   port     = var.task_port
   protocol = var.task_protocol
   vpc_id   = var.sea_network.shared_vpc.id
@@ -47,6 +47,7 @@ resource "aws_lb_listener" "alb_listener" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_tg.arn
   }
+  certificate_arn = var.internal_endpoint_protocol == "HTTPS" ? var.sea_network.default_internal_ssl_certificate.arn : null
 }
 
 #-------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ EOF
 
 resource "aws_db_subnet_group" "subnet_group" {
   name        = "${local.name}-rds-subnet-group"
-  description = "${local.name}"
+  description = "Groupe subnet pour ${local.name}"
   subnet_ids  = var.sea_network.data_subnets.ids
 }
 

@@ -105,14 +105,7 @@ variable "environment" {
   description = "Nom de l'environnement du système déployé."
 }
 ```
-Si vous utilisez les workspaces vous pouvez utiliser le nom de celui-ci comme valeur par défaut pour la variable `environment`
-```terraform
-variable "environment" {
-  type = string
-  description = "Nom de l'environnement du système déployé."
-  default = terraform.workspace
-}
-```
+
 Forcer les tags dans provider.tf
 ```terraform
 provider "aws" {

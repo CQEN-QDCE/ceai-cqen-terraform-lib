@@ -2,15 +2,19 @@ locals {
   name = "${var.system}-${var.environment}"
 }
 
+module "ceai-lib" {
+  source = "github.com/CQEN-QDCE/ceai-cqen-terraform-lib?ref=dev"
+}
+
 module "sea_network" {
-  source = "../aws/sea-network"
+  source = "./.terraform/modules/ceai-lib/aws/sea-network"
   
   aws_profile = var.aws_profile
   workload_account_type = var.workload_account_type
 }
 
 module "mysql" {
-  source = "../aws/sea-rds-aurora-mysql"
+  source = "./.terraform/modules/ceai-lib/aws/sea-rds-aurora-mysql"
   
   sea_network           = module.sea_network.all
   identifier            = local.name
@@ -23,7 +27,7 @@ module "mysql" {
 }
 
 module "ecs_cluster" {
-  source = "../aws/sea-ecs-cluster"
+  source = "./.terraform/modules/ceai-lib/aws/sea-ecs-cluster"
   
   identifier = local.name
 }
@@ -45,7 +49,7 @@ data "template_file" "container_test" {
 }
 
 module "ecs_service" {
-  source = "../aws/sea-ecs-fargate-service"
+  source = "./.terraform/modules/ceai-lib/aws/sea-ecs-fargate-service"
   
   sea_network = module.sea_network.all
   identifier  = local.name

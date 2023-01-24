@@ -17,5 +17,4 @@ variable "system" {
 variable "environment" {
   type = string
   description = "Nom de l'environnement du sytème déployé."
-  default = terraform.workspace
 }
