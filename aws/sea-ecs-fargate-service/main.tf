@@ -195,7 +195,7 @@ resource "aws_ecs_service" "app_service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.alb_tg.arn
     container_name   = var.task_container_name
-    container_port   = var.internal_endpoint_port
+    container_port   = var.task_port
   }
   depends_on = [ aws_iam_role.ecs_task_execution_role, aws_ecs_task_definition.app_task, aws_lb_listener.alb_listener, aws_lb.alb, aws_lb_target_group.alb_tg ]
 }
