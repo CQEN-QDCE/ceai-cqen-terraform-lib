@@ -1,5 +1,6 @@
 locals {
   name = "${var.system}-${var.environment}"
+  container_name = "${var.system}-container"
 }
 
 module "ceai-lib" {
@@ -35,7 +36,7 @@ module "ecs_cluster" {
 data "template_file" "container_test" {
   template = file("${path.module}/tasks/task.json.tftpl")
   vars = {
-    container_name       = "test-container"
+    container_name       = local.container_name
     image                = "rhel-minimal:latest"
     awslogs_group        = "/ecs/test-task"
     container_port       = 8080
@@ -55,6 +56,7 @@ module "ecs_service" {
   identifier  = local.name
   ecs_cluster_id = module.ecs_cluster.cluster_id
   task_definition = data.template_file.container_test.rendered
+  task_container_name = local.container_name
   task_port = 8080
   task_protocol = "HTTP"
   task_vcpu = 512

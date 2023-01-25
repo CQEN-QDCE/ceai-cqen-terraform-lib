@@ -17,6 +17,11 @@ variable "task_definition" {
   type = string
 }
 
+variable "task_container_name" {
+  description = "Nom du conteneur à déployer dans le service. Doit être le même que spécifié au task_definition."
+  type = string
+}
+
 variable "task_port" {
   description = "Port utilisé par le conteneur du service"
   type = number
