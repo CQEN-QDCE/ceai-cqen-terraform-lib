@@ -152,10 +152,10 @@ resource "aws_ecs_task_definition" "app_task" {
   dynamic "volume" {
     for_each = aws_efs_access_point.efs_ap
     content {
-      name = volume.value.tags_all.Name
+      name = volume.value.tags.Name
 
       efs_volume_configuration {
-        file_system_id          = volume.value.tags_all.file_system_id
+        file_system_id          = volume.value.file_system_id
         transit_encryption      = "ENABLED"
 
         authorization_config {
