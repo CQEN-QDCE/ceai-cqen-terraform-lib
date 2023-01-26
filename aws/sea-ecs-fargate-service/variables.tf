@@ -4,12 +4,11 @@ variable "identifier" {
 }
 
 variable "sea_network" {
-  description = "Données du module sea-network (module.sea_network.all)"
+  description = "Données du module sea-network"
 }
 
-variable "ecs_cluster_id" {
-  description = "Identifiant du cluster ECS qui héberge le service"
-  type = string
+variable "ecs_cluster" {
+  description = "Données d'un module sea-ecs-cluster"
 }
 
 variable "task_definition" {
@@ -42,19 +41,37 @@ variable "task_memory" {
   type = string
 }
 
-variable task_count {
-  description = "Nombre minimal d'instance."
-  type = string
+variable task_minimum_count {
+  description = "Nombre minimum d'instance de la tâche à laquelle l'autoscaling peut abaisser."
+  type = number
+}
+
+variable task_maximum_count {
+  description = "Nombre maximum d'instance de la tâche à laquelle l'autoscaling peut augmenter."
+  type = number
+}
+
+variable task_cpu_target_use {
+  description = "Pourcentage idéal d'utlisation des ressources de calcul. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre."
+  type = number
+  default = 85
+}
+
+variable task_memory_target_use {
+  description = "Pourcentage idéal d'utlisation de la mémoire. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre."
+  type = number
+  default = 85
 }
 
 variable "task_healthcheck_path" {
-  description = "Quantité de GB de mémoire maximum alloué à une instance de tâche."
+  description = "Url relative à vérifier pour effectuer un healthcheck. Cette url doit renvoyer un code de réponse HTTP 200 OK si le service fonctionne."
   type = string
 }
 
 variable "task_healthcheck_protocol" {
-  description = "Quantité de GB de mémoire maximum alloué à une instance de tâche."
+  description = "Protocole à utiliser pour le healthcheck. (defaut HTTP)"
   type = string
+  default = "HTTP"
 }
 
 variable "internal_endpoint_port" {

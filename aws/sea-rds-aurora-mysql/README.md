@@ -17,7 +17,7 @@ Crée un cluster RDS Aurora hébergeant une base de donnée compatible MySQL.
 | Nom | Description |
 | --- | ----------- |
 | identifier | Nom unique pour identifier les ressources AWS |
-| sea_network | Données du module sea-network (module.sea_network.all) |
+| sea_network | Données du module sea-network |
 | db_name | Nom de la base de données à créer |
 | db_user | Nom d'utilisateur de l'usager ayant droit sur la base de données |
 | min_capacity | Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM) |

@@ -4,7 +4,7 @@ variable "identifier" {
 }
 
 variable "sea_network" {
-  description = "Données du module sea-network (module.sea_network.all)"
+  description = "Données du module sea-network"
 }
 
 variable "db_name" {

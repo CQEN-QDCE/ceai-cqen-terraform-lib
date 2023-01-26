@@ -42,18 +42,3 @@ output "elb_access_log_bucket_name" {
   value   = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
   description = "Nom du bucket S3 oiù déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB_LOGGING_ENABLED"
 }
-
-output "all" {
-    value = {
-        shared_vpc = data.aws_vpc.shared_vpc
-        web_subnets = data.aws_subnets.web_subnets
-        app_subnets = data.aws_subnets.app_subnets
-        data_subnets = data.aws_subnets.data_subnets
-        web_security_group = data.aws_security_group.web_security_group
-        app_security_group = data.aws_security_group.app_security_group
-        data_security_group = data.aws_security_group.data_security_group
-        default_internal_ssl_certificate = data.aws_acm_certificate.default_internal_ssl_certificate
-        elb_access_log_bucket_name = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
-    }
-    description = "Objet contenant toutes les data sources concernant la réseautique partagée des comptes de travail SEA"
-}
