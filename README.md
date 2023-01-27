@@ -72,7 +72,7 @@ variable "aws_profile" {
 ```
 #### Identifier le type de compte SEA de travail utilisé
 
-Les modules pour les ressources à déployer dans SEA sont presque tous dépendant du module `sea-network`. Celui-ci doit connaitre le nom du *OU* du compte du travail (Préfix du VPC partagé). L'utilisation d'une variable est recommandée.
+Les modules pour les ressources à déployer dans SEA sont presque tous dépendant du module `sea-network`. Celui-ci doit connaitre le type de compte de travail utilisé (Sandbox, Dev ou Prod). L'utilisation d'une variable est recommandée.
 
 ```terraform
 variable "workload_account_type" {
@@ -103,6 +103,7 @@ variable "system" {
 variable "environment" {
   type = string
   description = "Nom de l'environnement du système déployé."
+  default = "Dev"
 }
 ```
 

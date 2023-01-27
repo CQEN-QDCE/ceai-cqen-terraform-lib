@@ -21,7 +21,7 @@ Crée un cluster RDS Aurora hébergeant une base de donnée compatible MySQL.
 | db_name | Nom de la base de données à créer |
 | db_user | Nom d'utilisateur de l'usager ayant droit sur la base de données |
 | min_capacity | Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM) |
-| max_capacity | Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM) |
+| max_capacity | Capacité maximale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM) |
 | allocated_storage | Quantité de stockage réservé à la création |
 | max_allocated_storage | Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage. |
 
