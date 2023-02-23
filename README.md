@@ -26,7 +26,7 @@ Importer le module vide `ceai-lib` pour importer le contenu du dépôt Git. Vous
 Vous pouvez spécifier le tag de version de la librairie via le paramètre `ref`. Sinon vous obtenez la version la plus récente (non recommandé).
 
 ```terraform
-module "ceai-lib" {
+module "ceai_lib" {
   source = "github.com/CQEN-QDCE/ceai-cqen-terraform-lib?ref=v1.0"
 }
 ```
