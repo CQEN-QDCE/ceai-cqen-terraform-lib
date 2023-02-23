@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = "${var.identifier}-aurora-mysql"
 }
 
 data "aws_kms_key" "rds" {
@@ -32,7 +32,7 @@ EOF
 
 resource "aws_db_subnet_group" "subnet_group" {
   name        = "${local.name}-rds-subnet-group"
-  description = "${local.name}"
+  description = "Groupe subnet pour ${local.name}"
   subnet_ids  = var.sea_network.data_subnets.ids
 }
 
@@ -62,7 +62,7 @@ resource "aws_iam_role_policy_attachment" "rds_monitoring_role_policy_attach" {
 }
 
 resource "aws_rds_cluster" "aurora_mysql_cluster" {
-  cluster_identifier                  = "${local.name}"
+  cluster_identifier                  = "${local.name}-rds-cluster"
   engine                              = "aurora-mysql"
   engine_mode                         = "provisioned"
   engine_version                      = "8"
@@ -78,6 +78,8 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   vpc_security_group_ids              = [var.sea_network.data_security_group.id]
   skip_final_snapshot                 = false
   final_snapshot_identifier           = "${local.name}-snapshot"
+  backup_retention_period             = 30
+  preferred_backup_window             = "04:00-04:30"
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
   depends_on                          = [ aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret ]
 
@@ -88,7 +90,7 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "aurora_mysql_instance" {
-  identifier_prefix                     = "${local.name}-instance-"
+  identifier_prefix                     = "${local.name}-rds-instance-"
   cluster_identifier                    = aws_rds_cluster.aurora_mysql_cluster.id
   instance_class                        = "db.serverless"
   engine                                = aws_rds_cluster.aurora_mysql_cluster.engine
