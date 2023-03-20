@@ -27,3 +27,11 @@ output "cluster_rds_id" {
     value = aws_rds_cluster.aurora_mysql_cluster.id
     description = "Id du cluster Aurora MySQL dans RDS"
 }
+
+output "rds_db_pass" {
+    value = "${random_password.db_password.result}"
+}
+
+output "rds_db_deploy" {
+    value = "${aws_rds_cluster_instance.aurora_mysql_instance}"
+}

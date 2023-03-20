@@ -16,7 +16,7 @@ resource "random_password" "db_password"{
 }
 
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name = "${local.name}-secret"
+  name = "${local.name}-rds-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
@@ -65,13 +65,13 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   cluster_identifier                  = "${local.name}-rds-cluster"
   engine                              = "aurora-mysql"
   engine_mode                         = "provisioned"
-  engine_version                      = "8"
+  engine_version                      = "8.0.mysql_aurora.3.03.0"
   database_name                       = var.db_name
   db_subnet_group_name                = aws_db_subnet_group.subnet_group.name
   master_username                     = var.db_user
   master_password                     = "${random_password.db_password.result}"
-  storage_type                        = "io1"
-  allocated_storage                   = var.allocated_storage
+  # storage_type                        = "io1"
+  # allocated_storage                   = var.allocated_storage
   storage_encrypted                   = true
   kms_key_id                          = data.aws_kms_key.rds.arn
   iam_database_authentication_enabled = false
@@ -82,7 +82,6 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   preferred_backup_window             = "04:00-04:30"
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
   depends_on                          = [ aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret ]
-
   serverlessv2_scaling_configuration {
     min_capacity = var.min_capacity
     max_capacity = var.max_capacity
