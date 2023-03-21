@@ -34,7 +34,7 @@ resource "aws_backup_vault" "backup_vault" {
 }
 
 resource "aws_backup_plan" "backup_plan" {
-  name = "${aws_backup_vault.backup_vault.name}-${terraform.workspace}-plan"
+  name = "${aws_backup_vault.backup_vault.name}-plan"
   dynamic "rule" {
     for_each = var.backup_rules
     content {
@@ -56,44 +56,45 @@ resource "aws_backup_plan" "backup_plan" {
 }
 
 resource "aws_backup_selection" "backup_rds" {
-  count = var.create_backup_rds ? 1 : 0
+  count = var.backup_rds_create ? 1 : 0
   iam_role_arn = aws_iam_role.aws-backup-service-role.arn
   name         = "${local.name}-rds"
   plan_id      = aws_backup_plan.backup_plan.id
   selection_tag {
     type  = "STRINGEQUALS"
-    key   = var.backup_tag_key
-    value = var.backup_tag_value
+    key   = "Backup"
+    value = "True"
   }
   resources = [
     var.rds_arn
  ]
+ depends_on = [
+    var.rds_arn
+  ]
 }
 
-data "aws_efs_file_system" "humhub_data_efs" {
-  tags = {
-    Tag = "backup-data"
-  }
+data "aws_efs_file_system" "data_efs" {
+  for_each = {for fs in var.efs_arn : fs.id => fs if contains(keys(fs.tags), "Tag") && fs.tags.Tag == var.backup_efs_tag}
+              
+  file_system_id = each.value.id
+
   depends_on = [
     var.efs_arn
   ]
 }
 
 resource "aws_backup_selection" "backup_efs" {
-  count = var.create_backup_efs ? 1 : 0
+ count = var.backup_efs_create ? 1 : 0
   iam_role_arn = aws_iam_role.aws-backup-service-role.arn
   name         = "${local.name}-data-efs"
   plan_id      = aws_backup_plan.backup_plan.id
   selection_tag {
     type  = "STRINGEQUALS"
-    key   = var.backup_tag_key
-    value = var.backup_tag_value
+    key   = "Backup"
+    value = "True"
   }
-  resources = [
-    data.aws_efs_file_system.humhub_data_efs.arn
+  resources = [for fs in data.aws_efs_file_system.data_efs : fs.arn] 
+    depends_on = [
+    var.efs_arn, data.aws_efs_file_system.data_efs
   ]
-  depends_on = [
-    var.efs_arn,
-    data.aws_efs_file_system.humhub_data_efs
-  ]  
 }
