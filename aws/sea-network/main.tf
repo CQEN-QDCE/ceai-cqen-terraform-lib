@@ -57,3 +57,11 @@ data "aws_security_group" "data_security_group" {
     Name = "Data_sg"
     }
 }
+
+data "aws_acm_certificate" "default_internal_ssl_certificate" {
+  domain = "*.asea.cqen.org"
+}
+
+data "external" "config_rule_elb_logging_enabled" {
+  program = ["${path.module}/external/elb_log_bucket_name.sh", "${var.aws_profile}"]
+}
