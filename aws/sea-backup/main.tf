@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}-${terraform.workspace}"
+  name = "${var.identifier}"
 }
 
 data "aws_kms_key" "aws_backup_key" {
