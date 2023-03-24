@@ -65,7 +65,7 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   cluster_identifier                  = "${local.name}-rds-cluster"
   engine                              = "aurora-mysql"
   engine_mode                         = "provisioned"
-  engine_version                      = "8.0.mysql_aurora.3.03.0"
+  engine_version                      = var.engine_version
   database_name                       = var.db_name
   db_subnet_group_name                = aws_db_subnet_group.subnet_group.name
   master_username                     = var.db_user

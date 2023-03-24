@@ -41,3 +41,9 @@ variable "vpc_security_group_ids" {
   description = "Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage (GB)"
   type = list
 }
+
+variable "engine_version" {
+  description = "La version du moteur de la base de données."
+  type = string
+  default = "8.0.mysql_aurora.3.03.0"
+}
