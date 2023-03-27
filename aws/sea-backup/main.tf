@@ -1,5 +1,7 @@
 locals {
   name = "${var.identifier}"
+  create_rds_backup = contains(["rds", "all"], var.ressource_type)
+  create_efs_backup = contains(["efs", "all"], var.ressource_type)
 }
 
 data "aws_kms_key" "aws_backup_key" {
@@ -56,7 +58,7 @@ resource "aws_backup_plan" "backup_plan" {
 }
 
 resource "aws_backup_selection" "backup_rds" {
-  count = var.backup_rds_create ? 1 : 0
+  count = local.create_rds_backup ? 1 : 0
   iam_role_arn = aws_iam_role.aws-backup-service-role.arn
   name         = "${local.name}-rds"
   plan_id      = aws_backup_plan.backup_plan.id
@@ -84,7 +86,7 @@ data "aws_efs_file_system" "data_efs" {
 }
 
 resource "aws_backup_selection" "backup_efs" {
- count = var.backup_efs_create ? 1 : 0
+  count = local.create_efs_backup ? 1 : 0
   iam_role_arn = aws_iam_role.aws-backup-service-role.arn
   name         = "${local.name}-data-efs"
   plan_id      = aws_backup_plan.backup_plan.id

@@ -28,16 +28,14 @@ variable "efs_arn" {
     description = "La liste ARN de l'EFS"
 }
 
-variable "backup_rds_create" {
-    type = bool
-    description = "Si la variable est fausse, nous ne créons pas de sauvegarde pour RDS en fixant le paramètre count à false."
-    default = false
-}
-
-variable "backup_efs_create" {
-    type = bool
-    description = "Si la variable est fausse, nous ne créons pas de sauvegarde pour EFS en fixant le paramètre count à false."
-    default = false
+variable "ressource_type" {
+  type    = string
+  default = "all"
+  description = "Type de sauvegarde à créer (efs, rds, or all)"
+  validation {
+    condition = can(regex("^(efs|rds|all)$", var.ressource_type))
+    error_message = "Type de sauvegarde non valide, ressource_type: '${var.ressource_type}'. Valeurs autorisées: efs, rds, all"
+  }
 }
 
 variable "backup_efs_tag" {
