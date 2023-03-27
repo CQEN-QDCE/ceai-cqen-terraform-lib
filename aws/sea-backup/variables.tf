@@ -19,7 +19,14 @@ variable "backup_alarms_email" {
 }
 
 variable "backup_rules" {
-    type = objet
+    type = list(object({
+      name                     = string
+      schedule                 = string
+      start_window             = number
+      completion_window        = number
+      delete_after             = number
+      enable_continuous_backup = bool
+    }))
     description = "L'objet règle qui spécifie une tâche planifiée utilisée pour sauvegarder une sélection de ressources."
 }
 
