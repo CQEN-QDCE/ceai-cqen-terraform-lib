@@ -38,7 +38,7 @@ variable "max_allocated_storage" {
 }
 
 variable "vpc_security_group_ids" {
-  description = "Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage (GB)"
+  description = "La liste d'identifiants de groupe de sécurité associés à RDS"
   type = list
 }
 
