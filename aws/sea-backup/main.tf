@@ -1,7 +1,5 @@
 locals {
   name = "${var.identifier}"
-  create_rds_backup = contains(["rds", "all"], var.ressource_type)
-  create_efs_backup = contains(["efs", "all"], var.ressource_type)
 }
 
 data "aws_kms_key" "aws_backup_key" {
@@ -57,46 +55,18 @@ resource "aws_backup_plan" "backup_plan" {
   }
 }
 
-resource "aws_backup_selection" "backup_rds" {
-  count = local.create_rds_backup ? 1 : 0
+resource "aws_backup_selection" "backup" {
   iam_role_arn = aws_iam_role.aws-backup-service-role.arn
-  name         = "${local.name}-rds"
+  name         = "${local.name}-backup"
   plan_id      = aws_backup_plan.backup_plan.id
   selection_tag {
     type  = "STRINGEQUALS"
     key   = "Backup"
     value = "True"
   }
-  resources = [
-    var.rds_arn
- ]
- depends_on = [
-    var.rds_arn
-  ]
-}
-
-data "aws_efs_file_system" "data_efs" {
-  for_each = {for fs in var.efs_arn : fs.id => fs if contains(keys(fs.tags), "Tag") && fs.tags.Tag == var.backup_efs_tag}
-              
-  file_system_id = each.value.id
-
+  resources       = var.ressources_arn
+  
   depends_on = [
-    var.efs_arn
-  ]
-}
-
-resource "aws_backup_selection" "backup_efs" {
-  count = local.create_efs_backup ? 1 : 0
-  iam_role_arn = aws_iam_role.aws-backup-service-role.arn
-  name         = "${local.name}-data-efs"
-  plan_id      = aws_backup_plan.backup_plan.id
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "Backup"
-    value = "True"
-  }
-  resources = [for fs in data.aws_efs_file_system.data_efs : fs.arn] 
-    depends_on = [
-    var.efs_arn, data.aws_efs_file_system.data_efs
+    var.backup_ressources_arn
   ]
 }
