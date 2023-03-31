@@ -29,16 +29,14 @@ Crée un cluster RDS Aurora hébergeant une base de donnée compatible MySQL.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | Quantité de stockage réservé à la création (GB) | `number` | n/a | yes |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Nom de la base de données à créer. | `string` | n/a | yes |
 | <a name="input_db_user"></a> [db\_user](#input\_db\_user) | Nom d'utilisateur de l'usager ayant droit sur la base de données | `string` | n/a | yes |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | La version du moteur de la base de données. | `string` | `"8.0.mysql_aurora.3.03.0"` | no |
 | <a name="input_identifier"></a> [identifier](#input\_identifier) | Nom unique pour identifier les ressources AWS | `string` | n/a | yes |
-| <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage (GB) | `number` | n/a | yes |
 | <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM) | `number` | n/a | yes |
 | <a name="input_min_capacity"></a> [min\_capacity](#input\_min\_capacity) | Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM) | `number` | n/a | yes |
 | <a name="input_sea_network"></a> [sea\_network](#input\_sea\_network) | Données du module sea-network | `any` | n/a | yes |
-| <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage (GB) | `list` | n/a | yes |
+| <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | La liste d'identifiants de groupe de sécurité associés à RDS | `list` | n/a | yes |
 
 ## Outputs
 

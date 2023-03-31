@@ -27,16 +27,6 @@ variable "max_capacity" {
   type = number
 }
 
-variable "allocated_storage" {
-  description = "Quantité de stockage réservé à la création (GB)"
-  type = number
-}
-
-variable "max_allocated_storage" {
-  description = "Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage (GB)"
-  type = number
-}
-
 variable "vpc_security_group_ids" {
   description = "La liste d'identifiants de groupe de sécurité associés à RDS"
   type = list
