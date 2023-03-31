@@ -67,6 +67,6 @@ resource "aws_backup_selection" "backup" {
   resources       = var.ressources_arn
   
   depends_on = [
-    var.backup_ressources_arn
+    var.ressources_arn
   ]
 }

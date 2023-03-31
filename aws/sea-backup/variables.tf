@@ -25,7 +25,7 @@ variable "backup_rules" {
     description = "L'objet règle qui spécifie une tâche planifiée utilisée pour sauvegarder une sélection de ressources."
 }
 
-variable "backup_ressources_arn" {
+variable "ressources_arn" {
   description = "Liste d'ARN des ressources à inclure dans la sélection de sauvegarde"
   type        = list(string)
 }
