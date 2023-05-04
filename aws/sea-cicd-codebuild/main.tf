@@ -5,9 +5,9 @@ locals {
 #-------------------------------------------------------------------------------
 # CodeCommit
 resource "aws_codecommit_repository" "img_definition_repository" {
-  repository_name = var.app_img_definition_repository_name
-  description     = var.app_img_definition_repository_description
-  default_branch  = var.app_img_definition_repository_default_branch
+  repository_name = "${local.name}-img-def-codebuild-repo"
+  description     = "Repo AWS CodeBuild de la définition de l'image docker de l'application."
+  default_branch  = "main"
 }
 
 #-------------------------------------------------------------------------------

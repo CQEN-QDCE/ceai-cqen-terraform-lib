@@ -35,9 +35,6 @@ No modules.
 | <a name="input_app_buildspec_path"></a> [app\_buildspec\_path](#input\_app\_buildspec\_path) | Path du fichier buildspec de l'application dans le repo GitHub. | `string` | n/a | yes |
 | <a name="input_app_ecr_repository_name"></a> [app\_ecr\_repository\_name](#input\_app\_ecr\_repository\_name) | Nom du repo AWS ECR de l'image docker de l'application. | `string` | n/a | yes |
 | <a name="input_app_ecs_container_name"></a> [app\_ecs\_container\_name](#input\_app\_ecs\_container\_name) | Nom du container AWS ECS de l'application. | `string` | n/a | yes |
-| <a name="input_app_img_definition_repository_default_branch"></a> [app\_img\_definition\_repository\_default\_branch](#input\_app\_img\_definition\_repository\_default\_branch) | Branch du repo de la définition de l'image docker de l'application. | `string` | n/a | yes |
-| <a name="input_app_img_definition_repository_description"></a> [app\_img\_definition\_repository\_description](#input\_app\_img\_definition\_repository\_description) | Description du repo de la définition de l'image docker de l'application. | `string` | n/a | yes |
-| <a name="input_app_img_definition_repository_name"></a> [app\_img\_definition\_repository\_name](#input\_app\_img\_definition\_repository\_name) | Nom du repo de la définition de l'image docker de l'application. | `string` | n/a | yes |
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Nom de l'application. | `string` | n/a | yes |
 | <a name="input_app_path"></a> [app\_path](#input\_app\_path) | Path de l'application dans le repo GitHub. | `string` | n/a | yes |
 | <a name="input_github_repo_branch"></a> [github\_repo\_branch](#input\_github\_repo\_branch) | Branch du repo GitHub de l'application. | `string` | n/a | yes |

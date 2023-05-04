@@ -13,21 +13,6 @@ variable "account_id" {
   description = "AWS account ID."
 }
 
-variable "app_img_definition_repository_name" {
-  description = "Nom du repo de la définition de l'image docker de l'application."
-  type = string
-}
-
-variable "app_img_definition_repository_description" {
-  description = "Description du repo de la définition de l'image docker de l'application."
-  type = string  
-}
-
-variable "app_img_definition_repository_default_branch" {
-  description = "Branch du repo de la définition de l'image docker de l'application."
-  type = string
-}
-
 variable "app_ecr_repository_name" {
   type = string
   description = "Nom du repo AWS ECR de l'image docker de l'application."
