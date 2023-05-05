@@ -104,13 +104,12 @@ resource "aws_codebuild_project" "codebuild_project" {
     type = "LINUX_CONTAINER"
     image = "aws/codebuild/standard:6.0"
     compute_type = "BUILD_GENERAL1_SMALL"
-    environmentVariables = [
-      {
+    
+    environment_variable {
         name = "APP_CODEBUILD_SECRET_ID" 
-        value = "${aws_secretsmanager_secret.codebuild_secret.id}"
-        type = "PLAINTEXT"
-      }      
-    ]       
+        value = "${aws_secretsmanager_secret.codebuild_secret.id}"      
+    }
+    
     privileged_mode = true
     image_pull_credentials_type = "CODEBUILD"
   }
