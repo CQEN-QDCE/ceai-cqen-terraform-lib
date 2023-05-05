@@ -1,0 +1,67 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:GetRegistryPolicy",
+                "ecr:BatchImportUpstreamImage",
+                "ecr:CreateRepository",
+                "ecr:DescribeRegistry",
+                "ecr:GetAuthorizationToken",
+                "ecr:PutRegistryScanningConfiguration",
+                "ecr:CreatePullThroughCacheRule",
+                "ecr:DeletePullThroughCacheRule",
+                "ecr:GetRegistryScanningConfiguration",
+                "ecr:PutReplicationConfiguration"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:PutImageTagMutability",
+                "ecr:StartImageScan",
+                "ecr:DescribeImageReplicationStatus",
+                "ecr:ListTagsForResource",
+                "ecr:BatchDeleteImage",
+                "ecr:UploadLayerPart",
+                "ecr:BatchGetRepositoryScanningConfiguration",
+                "codecommit:PutFile",
+                "ecr:DeleteRepository",
+                "codebuild:CreateReport",
+                "logs:CreateLogStream",
+                "secretsmanager:GetSecretValue",
+                "codebuild:UpdateReport",
+                "ecr:CompleteLayerUpload",
+                "codebuild:BatchPutCodeCoverages",
+                "ecr:DescribeRepositories",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:ReplicateImage",
+                "ecr:GetLifecyclePolicy",
+                "ecr:PutLifecyclePolicy",
+                "ecr:DescribeImageScanFindings",
+                "ecr:GetLifecyclePolicyPreview",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:PutImageScanningConfiguration",
+                "ecr:DeleteLifecyclePolicy",
+                "logs:CreateLogGroup",
+                "logs:PutLogEvents",
+                "ecr:PutImage",
+                "codebuild:CreateReportGroup",
+                "s3:PutObject",
+                "s3:GetObject",
+                "codecommit:GetBranch",
+                "ecr:BatchGetImage",
+                "ecr:StartLifecyclePolicyPreview",
+                "ecr:InitiateLayerUpload",
+                "codebuild:BatchPutTestCases",
+                "s3:GetObjectVersion",
+                "ecr:GetRepositoryPolicy",
+                "s3:GetBucketAcl",
+                "s3:GetBucketLocation"                
+            ],
+            "Resource": "*"
+        }
+    ]
+}
