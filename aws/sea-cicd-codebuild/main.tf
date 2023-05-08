@@ -13,7 +13,7 @@ resource "aws_codecommit_repository" "img_definition_repository" {
 #-------------------------------------------------------------------------------
 # Secrets
 resource "aws_secretsmanager_secret" "codebuild_secret" {
-  name = "${local.name}-codebuild-secret"
+  name = "${local.name}-codebuild-secret-2"
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_secret" {
@@ -109,7 +109,7 @@ resource "aws_codebuild_project" "codebuild_project" {
         name = "APP_CODEBUILD_SECRET_ID" 
         value = "${aws_secretsmanager_secret.codebuild_secret.id}"      
     }
-    
+
     privileged_mode = true
     image_pull_credentials_type = "CODEBUILD"
   }
