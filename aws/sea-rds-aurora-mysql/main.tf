@@ -79,7 +79,14 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   backup_retention_period             = 30
   preferred_backup_window             = "04:00-04:30"
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
+  enabled_cloudwatch_logs_exports     = ["audit", "error", "general", "slowquery"]
+  deletion_protection                 = true
   depends_on                          = [ aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret ]
+
+  lifecycle {
+    prevent_destroy = true
+  }
+
   serverlessv2_scaling_configuration {
     min_capacity = var.min_capacity
     max_capacity = var.max_capacity
