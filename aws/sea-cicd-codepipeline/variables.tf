@@ -1,3 +1,8 @@
+variable "identifier" {
+  description = "Nom unique pour identifier les ressources AWS"
+  type = string
+}
+
 variable "aws_codecommit_repository_default_branch" {
     type = string
     description = "Branch du repo AWS CodeCommit de la définition de l'image docker de l'application."
