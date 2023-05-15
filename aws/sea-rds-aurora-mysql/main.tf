@@ -73,7 +73,7 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   storage_encrypted                   = true
   kms_key_id                          = data.aws_kms_key.rds.arn
   iam_database_authentication_enabled = false
-  vpc_security_group_ids              = var.vpc_security_group_ids
+  vpc_security_group_ids              = [var.sea_network.data_security_group.id, var.vpc_db_security_group_id]
   skip_final_snapshot                 = false
   final_snapshot_identifier           = "${local.name}-snapshot"
   backup_retention_period             = 30

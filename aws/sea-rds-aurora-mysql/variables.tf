@@ -27,9 +27,9 @@ variable "max_capacity" {
   type = number
 }
 
-variable "vpc_security_group_ids" {
-  description = "La liste d'identifiants de groupe de sécurité associés à RDS"
-  type = list
+variable "vpc_db_security_group_id" {
+  description = "Une groupe de sécurité supplémentaire associé à RDS"
+  type = string
 }
 
 variable "engine_version" {
