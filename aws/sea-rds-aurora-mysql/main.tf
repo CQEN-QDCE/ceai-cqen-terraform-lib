@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}-mysql"
+  name = "${var.identifier}-aurora-mysql"
 }
 
 data "aws_kms_key" "rds" {
@@ -93,8 +93,9 @@ resource "aws_rds_cluster" "aurora_mysql_cluster" {
   }
 }
 
-resource "aws_rds_cluster_instance" "aurora_mysql_instance" {
-  identifier_prefix                     = "${local.name}-rds-instance-"
+resource "aws_rds_cluster_instance" "aurora_mysql_instance_write" {
+  count = 1
+  identifier_prefix                     = "${local.name}-write-"
   cluster_identifier                    = aws_rds_cluster.aurora_mysql_cluster.id
   instance_class                        = "db.serverless"
   engine                                = aws_rds_cluster.aurora_mysql_cluster.engine
@@ -106,4 +107,27 @@ resource "aws_rds_cluster_instance" "aurora_mysql_instance" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 186
   performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+
+  tags = {
+    Name = "${local.name}-write-${count.index+1}"
+  }
+}
+
+resource "aws_rds_cluster_instance" "aurora_mysql_instance_read" {
+  count = 1
+  identifier_prefix                     = "${local.name}-read-"
+  cluster_identifier                    = aws_rds_cluster.aurora_mysql_cluster.id
+  instance_class                        = "db.serverless"
+  engine                                = aws_rds_cluster.aurora_mysql_cluster.engine
+  engine_version                        = aws_rds_cluster.aurora_mysql_cluster.engine_version
+  publicly_accessible                   = false
+  db_subnet_group_name                  = aws_db_subnet_group.subnet_group.name
+  monitoring_interval                   = 15
+  monitoring_role_arn                   = aws_iam_role.rds_monitoring_role.arn
+  performance_insights_enabled          = true
+  performance_insights_retention_period = 186
+  performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+  tags = {
+    Name = "${local.name}-read-${count.index+1}"
+  }
 }

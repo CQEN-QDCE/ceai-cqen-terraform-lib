@@ -34,6 +34,6 @@ output "rds_db_pass" {
 }
 
 output "rds_db_deploy" {
-    value = "${aws_rds_cluster_instance.aurora_mysql_instance}"
+    value = "${aws_rds_cluster_instance.aurora_mysql_instance_read}"
     description = "La ressource aws pour voir si l'instance mysql est bien déployée"
 }
