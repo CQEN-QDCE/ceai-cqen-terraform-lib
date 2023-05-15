@@ -75,12 +75,11 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Deploy"
     action {
       name     = "Deploy"
-      actionTypeId = {
-        category = "Deploy"
-        owner    = "AWS"
-        provider = "ECS"
-        version  = "1"
-      }
+      category = "Deploy"
+      owner    = "AWS"
+      provider = "ECS"
+      version  = "1"
+
       run_order = 1
       configuration = {
         ClusterName = "${var.ecs_cluster_name}"
