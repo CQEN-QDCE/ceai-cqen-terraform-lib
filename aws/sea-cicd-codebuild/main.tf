@@ -13,7 +13,7 @@ resource "aws_codecommit_repository" "img_definition_repository" {
 #-------------------------------------------------------------------------------
 # Secrets
 resource "aws_secretsmanager_secret" "codebuild_secret" {
-  name = "${local.name}-codebuild-secret-2"
+  name = "${local.name}-codebuild-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_secret" {
