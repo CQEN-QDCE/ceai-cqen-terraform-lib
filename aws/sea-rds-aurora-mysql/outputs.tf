@@ -33,7 +33,7 @@ output "rds_db_pass" {
     description = "Le mot de passe administrateur de la base de donnée MySQL"
 }
 
-output "rds_db_deploy" {
+output "rds_cluster_instance" {
     value = "${aws_rds_cluster_instance.aurora_mysql_instance_read}"
     description = "La ressource aws pour voir si l'instance mysql est bien déployée"
 }
