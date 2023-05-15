@@ -52,12 +52,11 @@ resource "aws_codepipeline" "codepipeline" {
 
     action {
       name            = "Source"   
-      actionTypeId = {
-        category = "Source"
-        owner    = "AWS"
-        provider = "CodeCommit"
-        version  = "1"
-      }      
+      category = "Source"
+      owner    = "AWS"
+      provider = "CodeCommit"
+      version  = "1"
+      
       run_order = 1      
       configuration = {
         "BranchName"     = "${var.aws_codecommit_repository_default_branch}"
