@@ -27,7 +27,7 @@ resource "aws_secretsmanager_secret_version" "codebuild_secret" {
       "ECS_CONTAINER_NAME": "${var.app_ecs_container_name}",
       "CODECOMMIT_REPO_NAME": aws_codecommit_repository.img_definition_repository.repository_name,
       "CODECOMMIT_COMMIT_MESSAGE": "${local.name}_codebuild_commit",
-      "ACCOUNT_ID": "${aws_caller_identity.current.account_id}",
+      "ACCOUNT_ID": aws_caller_identity.current.account_id, #"${aws_caller_identity.current.account_id}",
       "CODECOMMIT_BRANCH": "main"
     }
   )
