@@ -8,11 +8,6 @@ variable "app_name" {
   description = "Nom de l'application."
 }
 
-variable "account_id" {
-  type = string
-  description = "AWS account ID."
-}
-
 variable "app_ecr_repository_name" {
   type = string
   description = "Nom du repo AWS ECR de l'image docker de l'application."
