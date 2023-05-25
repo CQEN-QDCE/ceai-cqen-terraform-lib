@@ -5,25 +5,19 @@ No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ceai_lib"></a> [ceai\_lib](#module\_ceai\_lib) | github.com/CQEN-QDCE/ceai-cqen-terraform-lib | dev |
-| <a name="module_ecs_cluster"></a> [ecs\_cluster](#module\_ecs\_cluster) | ./.terraform/modules/ceai_lib/aws/sea-ecs-cluster | n/a |
-| <a name="module_ecs_service"></a> [ecs\_service](#module\_ecs\_service) | ./.terraform/modules/ceai_lib/aws/sea-ecs-fargate-service | n/a |
-| <a name="module_mysql"></a> [mysql](#module\_mysql) | ./.terraform/modules/ceai_lib/aws/sea-rds-aurora-mysql | n/a |
-| <a name="module_sea_network"></a> [sea\_network](#module\_sea\_network) | ./.terraform/modules/ceai_lib/aws/sea-network | n/a |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | ./modules/ecr | n/a |
+| <a name="module_sea_cicd_codebuild"></a> [sea\_cicd\_codebuild](#module\_sea\_cicd\_codebuild) | ./.terraform/modules/ceai_lib/aws/sea-cicd-codebuild | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [template_file.container_test](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
+No resources.
 
 ## Inputs
 

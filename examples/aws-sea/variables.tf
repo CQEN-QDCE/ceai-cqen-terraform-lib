@@ -1,3 +1,8 @@
+variable "aws_region" {
+  type = string
+  description = "a specific AWS region"  
+}
+
 variable "aws_profile" {
   type = string
   description = "Nom du profil de connexion SSO dans le fichier .aws/config du poste qui exécute le déploiement"
