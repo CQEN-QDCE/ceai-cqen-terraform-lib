@@ -48,7 +48,7 @@ Récupère les ressources réseautique du compte de travail spécifié et les ex
 | <a name="output_data_subnet_b"></a> [data\_subnet\_b](#output\_data\_subnet\_b) | Subnet partagé Data zone b |
 | <a name="output_data_subnets"></a> [data\_subnets](#output\_data\_subnets) | Subnet partagé Data |
 | <a name="output_default_internal_ssl_certificate"></a> [default\_internal\_ssl\_certificate](#output\_default\_internal\_ssl\_certificate) | Certificat SSL interne par défaut du compte |
-| <a name="output_elb_access_log_bucket_name"></a> [elb\_access\_log\_bucket\_name](#output\_elb\_access\_log\_bucket\_name) | Nom du bucket S3 oiù déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB\_LOGGING\_ENABLED |
+| <a name="output_elb_access_log_bucket_name"></a> [elb\_access\_log\_bucket\_name](#output\_elb\_access\_log\_bucket\_name) | Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB\_LOGGING\_ENABLED |
 | <a name="output_shared_vpc"></a> [shared\_vpc](#output\_shared\_vpc) | VPC partagé du compte de travail |
 | <a name="output_web_security_group"></a> [web\_security\_group](#output\_web\_security\_group) | Groupe de sécurité partagé Web |
 | <a name="output_web_subnet_a"></a> [web\_subnet\_a](#output\_web\_subnet\_a) | Subnet partagé Web zone a |
