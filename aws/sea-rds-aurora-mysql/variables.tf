@@ -28,7 +28,7 @@ variable "max_capacity" {
 }
 
 variable "vpc_db_security_group_id" {
-  description = "Une groupe de sécurité supplémentaire associé à RDS"
+  description = "Un groupe de sécurité supplémentaire associé à RDS"
   type = string
 }
 
