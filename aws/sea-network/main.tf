@@ -65,3 +65,70 @@ data "aws_acm_certificate" "default_internal_ssl_certificate" {
 data "external" "config_rule_elb_logging_enabled" {
   program = ["${path.module}/external/elb_log_bucket_name.sh", "${var.aws_profile}"]
 }
+
+data "aws_subnet" "web_subnet_a" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.shared_vpc.id]
+  }
+
+  tags = { 
+    Name = "Web_${var.workload_account_type}_aza_net"
+  }
+}
+
+data "aws_subnet" "web_subnet_b" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.shared_vpc.id]
+  }
+
+  tags = { 
+    Name = "Web_${var.workload_account_type}_azb_net"
+  }
+}
+
+data "aws_subnet" "data_subnet_a" {
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.shared_vpc.id]
+  }
+
+  tags = { 
+    Name = "Data_${var.workload_account_type}_aza_net"
+  }
+}
+
+data "aws_subnet" "data_subnet_b" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.shared_vpc.id]
+  }
+
+  tags = { 
+    Name = "Data_${var.workload_account_type}_azb_net"
+  }
+}
+
+data "aws_subnet" "app_subnet_a" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.shared_vpc.id]
+  }
+
+  tags = { 
+    Name = "App_${var.workload_account_type}_aza_net"
+  }
+}
+
+data "aws_subnet" "app_subnet_b" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.shared_vpc.id]
+  }
+  
+  tags = { 
+    Name = "App_${var.workload_account_type}_azb_net"
+  }
+}
