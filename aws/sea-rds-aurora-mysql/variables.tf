@@ -23,16 +23,17 @@ variable "min_capacity" {
 }
 
 variable "max_capacity" {
-  description = "Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM)"
+  description = "Capacité maximale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM)"
   type = number
 }
 
-variable "allocated_storage" {
-  description = "Quantité de stockage réservé à la création (GB)"
-  type = number
+variable "vpc_db_security_group_id" {
+  description = "Un groupe de sécurité supplémentaire associé à RDS"
+  type = string
 }
 
-variable "max_allocated_storage" {
-  description = "Quantité de stockage maximum pouvant être réservé en cas de mise à l'échelle du stockage (GB)"
-  type = number
+variable "engine_version" {
+  description = "La version du moteur de la base de données."
+  type = string
+  default = "8.0.mysql_aurora.3.03.0"
 }
