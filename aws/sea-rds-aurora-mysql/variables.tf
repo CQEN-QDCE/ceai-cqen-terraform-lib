@@ -23,7 +23,7 @@ variable "min_capacity" {
 }
 
 variable "max_capacity" {
-  description = "Capacité minimale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM)"
+  description = "Capacité maximale provisionnée en ACU (Aurora Capacity Unit, 0,5ACU = 1GB RAM)"
   type = number
 }
 
