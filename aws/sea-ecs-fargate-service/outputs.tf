@@ -23,7 +23,7 @@ output "alb_endpoint" {
     description = "DNS Interne du ALB exposant le service ECS"
 }
 
-output "alb_arn" {
-    value = aws_lb.alb.arn
-    description = "ARN du ALB exposant le service ECS"
+output "alb_listener_arn" {
+    value = aws_lb_listener.alb_listener.arn
+    description = "ARN du listener du ALB exposant le service ECS"
 }
