@@ -42,3 +42,33 @@ output "elb_access_log_bucket_name" {
   value   = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
   description = "Nom du bucket S3 oiù déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB_LOGGING_ENABLED"
 }
+
+output "web_subnet_a" {
+  value   = data.aws_subnet.web_subnet_a
+  description = "Subnet partagé Web zone a"
+}
+
+output "app_subnet_b" {
+  value   = data.aws_subnet.app_subnet_b
+  description = "Subnet partagé App zone b"
+}
+
+output "data_subnet_a" {
+  value   = data.aws_subnet.data_subnet_a
+  description = "Subnet partagé Data zone a"
+}
+
+output "web_subnet_b" {
+  value   = data.aws_subnet.web_subnet_b
+  description = "Subnet partagé Web zone b"
+}
+
+output "app_subnet_a" {
+  value   = data.aws_subnet.app_subnet_a
+  description = "Subnet partagé App zone a"
+}
+
+output "data_subnet_b" {
+  value   = data.aws_subnet.data_subnet_b
+  description = "Subnet partagé Data zone b"
+}
