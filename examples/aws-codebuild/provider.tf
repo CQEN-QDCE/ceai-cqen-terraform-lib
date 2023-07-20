@@ -6,7 +6,6 @@ provider "aws" {
         tags = {
             system = var.system
             environment = var.environment
-            tbd = "yes"
         }
     }
 }

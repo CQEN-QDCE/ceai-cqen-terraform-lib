@@ -98,7 +98,6 @@ resource "aws_codebuild_project" "codebuild_project" {
     override_artifact_name = false
     encryption_disabled = false
   }
-  #secondary_artifacts = []
   cache {
     type = "NO_CACHE"
   }
@@ -117,12 +116,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   }
   service_role = aws_iam_role.codebuild_role.arn
   build_timeout = 60
-  #queuedTimeoutInMinutes = 480
   badge_enabled = false
-  /*
-  badge = {
-    badge_enabled = false
-  } */ 
   logs_config {
     cloudwatch_logs {
       status = "ENABLED"
@@ -131,7 +125,6 @@ resource "aws_codebuild_project" "codebuild_project" {
       status = "DISABLED"
     }
   }
-  #file_system_locations = []  
 }
 
 resource "aws_codebuild_webhook" "ci_cd_webhook" {

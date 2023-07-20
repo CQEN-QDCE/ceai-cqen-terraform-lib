@@ -1,7 +1,8 @@
+/*
 variable "aws_region" {
   type = string
   description = "a specific AWS region"  
-}
+}*/
 
 variable "aws_profile" {
   type = string

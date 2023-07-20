@@ -17,7 +17,7 @@ module "sea_network" {
 module "mysql" {
   source = "./.terraform/modules/ceai_lib/aws/sea-rds-aurora-mysql"
   
-  sea_network           = module.sea_network.all
+  sea_network           = module.sea_network
   identifier            = local.name
   db_name               = var.system
   db_user               = var.system
@@ -52,16 +52,19 @@ data "template_file" "container_test" {
 module "ecs_service" {
   source = "./.terraform/modules/ceai_lib/aws/sea-ecs-fargate-service"
   
-  sea_network = module.sea_network.all
+  sea_network = module.sea_network
   identifier  = local.name
-  ecs_cluster_id = module.ecs_cluster.cluster_id
   task_definition = data.template_file.container_test.rendered
   task_container_name = local.container_name
   task_port = 8080
   task_protocol = "HTTP"
   task_vcpu = 512
   task_memory = 1
-  task_count = 1
+
+  task_minimum_count = 1
+  task_maximum_count = 1
+  ecs_cluster = module.ecs_cluster
+
   task_healthcheck_path = "/healthcheck"
   task_healthcheck_protocol = "HTTP"
   volume_efs = {
