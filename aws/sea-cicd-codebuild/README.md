@@ -28,12 +28,12 @@ No modules.
 | [aws_s3_bucket.codebuild_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_secretsmanager_secret.codebuild_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.codebuild_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | AWS account ID. | `string` | n/a | yes |
 | <a name="input_app_buildspec_path"></a> [app\_buildspec\_path](#input\_app\_buildspec\_path) | Path du fichier buildspec de l'application dans le repo GitHub. | `string` | n/a | yes |
 | <a name="input_app_ecr_repository_name"></a> [app\_ecr\_repository\_name](#input\_app\_ecr\_repository\_name) | Nom du repo AWS ECR de l'image docker de l'application. | `string` | n/a | yes |
 | <a name="input_app_ecs_container_name"></a> [app\_ecs\_container\_name](#input\_app\_ecs\_container\_name) | Nom du container AWS ECS de l'application. | `string` | n/a | yes |
