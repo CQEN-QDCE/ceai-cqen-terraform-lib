@@ -40,6 +40,7 @@ module "sea_network" {
 ### Exemples de déploiements
 
  * [AWS - Conteneur ECS avec Base de données Aurora MySQL](/examples/aws-sea/)
+ * [AWS - CodeBuild](examples/aws-codebuild/)
 
 
 ## Bonnes pratiques d'utilisation
