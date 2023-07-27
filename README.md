@@ -51,14 +51,14 @@ Les librairies tiennent compte de l'utilisation de certaines bonnes pratiques da
 
 #### Utiliser la connexion au compte AWS via un profil de connexion du client AWS.
 
-Sur la machine qui exécute le déploiement, modifier le fichier` $HOME/.aws/config` (Créer le s'il n'existe pas).
+Sur la machine qui exécute le déploiement, modifier le fichier` $HOME/.aws/config` (Le créer s'il n'existe pas).
 
-```
-[profile CompteExemple]
-sso_start_url = [Url de connexion AWS SSO]
+```bash
+[profile {CompteExemple}]
+sso_start_url = {Url de connexion AWS SSO}
 sso_region = ca-central-1
-sso_account_id = [Numéro du compte]
-sso_role_name = [Nom du role que vous possédez sur ce compte]
+sso_account_id = {Numéro du compte}
+sso_role_name = {Nom du role que vous possédez sur ce compte}
 region = ca-central-1
 output = json
 ```

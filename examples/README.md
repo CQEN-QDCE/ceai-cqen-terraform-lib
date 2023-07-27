@@ -20,21 +20,12 @@
 
 2. Créer le profil vers le compte de travail AWS .
 
-    Utiliser le cli aws
+    Utiliser le cli aws et complétez les informations requises avec:
     ```
     aws sso configure
     ```
 
-    Ou ajouter manuellement dans votre fichier `$HOME/.aws/config` le bloc suivant en remplaçant les {valeurs} par celles du compte AWS utilisé.
-    ```bash
-    [profile {nom_du_compte}]
-    sso_start_url = {Url de connexion AWS SSO}
-    sso_region = ca-central-1
-    sso_account_id = {Numéro du compte}
-    sso_role_name = {Nom du role que vous possédez sur ce compte}
-    region = ca-central-1
-    output = json
-    ```
+    Ou créez ou éditez votre fichier `$HOME/.aws/config` en remplaçant les {valeurs} par celles du compte AWS utilisé, tel que indiqué [ici](../README.md#utiliser-la-connexion-au-compte-aws-via-un-profil-de-connexion-du-client-aws).
 
 3. Renommer le fichier environment/test/terraform.tfvars.example: terraform.tfvars. Y renseigner les variables avec les informations du compte AWS ainsi qu'un identifiant pour votre déploiement.
     ```
