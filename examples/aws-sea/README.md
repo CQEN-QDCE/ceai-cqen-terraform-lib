@@ -1,66 +1,41 @@
-# Exemple de déploiement utilisant la librairie AWS
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-## Modules déployés
+No requirements.
 
-* [sea-network](../../aws/sea-network)
-* [sea-rds-aurora-mysql](../../aws/sea-rds-aurora-mysql)
-* [sea-ecs-cluster](../../aws/sea-ecs-cluster)
-* [sea-ecs-fargate-service](../../aws/sea-ecs-fargate-service)
+## Providers
 
-## Procédure
+| Name | Version |
+|------|---------|
+| <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
 
-1. Créer workspace
+## Modules
 
-```bash
-terraform workspace new test
-```
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_ceai_lib"></a> [ceai\_lib](#module\_ceai\_lib) | github.com/CQEN-QDCE/ceai-cqen-terraform-lib | dev |
+| <a name="module_ecs_cluster"></a> [ecs\_cluster](#module\_ecs\_cluster) | ./.terraform/modules/ceai_lib/aws/sea-ecs-cluster | n/a |
+| <a name="module_ecs_service"></a> [ecs\_service](#module\_ecs\_service) | ./.terraform/modules/ceai_lib/aws/sea-ecs-fargate-service | n/a |
+| <a name="module_mysql"></a> [mysql](#module\_mysql) | ./.terraform/modules/ceai_lib/aws/sea-rds-aurora-mysql | n/a |
+| <a name="module_sea_network"></a> [sea\_network](#module\_sea\_network) | ./.terraform/modules/ceai_lib/aws/sea-network | n/a |
 
-2. Créer le profil vers le compte de travail AWS .
+## Resources
 
-Utiliser le cli aws
-```
-aws sso configure
-```
+| Name | Type |
+|------|------|
+| [template_file.container_test](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
-Ou ajouter manuellement dans votre fichier `$HOME/.aws/config` le bloc suivant en remplaçant les {valeurs} par celles du compte AWS utilisé.
-```bash
-[profile {nom_du_compte}]
-sso_start_url = {Url de connexion AWS SSO}
-sso_region = ca-central-1
-sso_account_id = {Numéro du compte}
-sso_role_name = {Nom du role que vous possédez sur ce compte}
-region = ca-central-1
-output = json
-```
+## Inputs
 
-3. Renommer le fichier environment/test/terraform.tfvars.example: terraform.tfvars. Y renseigner les variables avec les informations du compte AWS ainsi qu'un identifiant pour votre déploiement.
-```
-aws_profile           = "{Nom du profile}"
-workload_account_type = "{Type de compte de travail (Sandbox, Dev ou Prod)}"
-identifier            = "{Nom du déploiement}"
-```
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Nom du profil de connexion SSO dans le fichier .aws/config du poste qui exécute le déploiement | `string` | n/a | yes |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | a specific AWS region | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Nom de l'environnement du sytème déployé. | `string` | n/a | yes |
+| <a name="input_system"></a> [system](#input\_system) | Nom du système déployé. | `string` | `"Exemple"` | no |
+| <a name="input_workload_account_type"></a> [workload\_account\_type](#input\_workload\_account\_type) | Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod] | `string` | n/a | yes |
 
-4. Démarrer une session AWS CLI vers le compte de travail. 
-```bash
-aws sso login --profile [nom_profile]
-```
+## Outputs
 
-5. Lancer la commande d'initialisation 
-```
-terraform init
-```
-
-6. Lancer la commande `plan` 
-```
-terraform plan -var-file=./environments/test/terraform.tfvars
-```
-
-7. Lancer la commande `apply`, pour déployer les services dans le compte.
-```
-terraform apply -var-file=./environments/test/terraform.tfvars
-```
-
-8. Lancer la commande `destroy`, pour suppprimer les services déployés.
-```
-terraform destroy -var-file=./environments/test/terraform.tfvars
-```
+No outputs.
+<!-- END_TF_DOCS -->
