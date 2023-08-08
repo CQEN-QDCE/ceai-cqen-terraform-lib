@@ -8,7 +8,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_lb_target_group" "alb_tg" {
   name     = "${local.name}-tg"
-  port     = 80
+  port     = var.internal_endpoint_port
   protocol = var.internal_endpoint_protocol
   vpc_id   = var.sea_network.shared_vpc.id
   target_type = "ip"
