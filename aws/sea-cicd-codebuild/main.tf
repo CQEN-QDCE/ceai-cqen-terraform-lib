@@ -68,7 +68,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_role_policy_attach" {
 #-------------------------------------------------------------------------------
 # S3
 resource "aws_s3_bucket" "codebuild_bucket" {
-  bucket = "${local.name}-bucket"
+  bucket = "${local.name}-codebuild-bucket"
 }
 
 #-------------------------------------------------------------------------------
