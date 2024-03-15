@@ -8,8 +8,8 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_lb_target_group" "alb_tg" {
   name     = "${local.name}-tg"
-  port     = var.task_port
-  protocol = var.task_protocol
+  port     = var.internal_endpoint_port
+  protocol = var.internal_endpoint_protocol
   vpc_id   = var.sea_network.shared_vpc.id
   target_type = "ip"
   lifecycle {
