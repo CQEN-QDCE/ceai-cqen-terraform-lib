@@ -166,8 +166,6 @@ resource "aws_ecs_task_definition" "app_task" {
 
     }
   }
-
-  #depends_on = [ aws_secretsmanager_secret_version.passbolt_app_secret ]
 }
 
 #-------------------------------------------------------------------------------

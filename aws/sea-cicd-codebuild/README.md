@@ -1,5 +1,5 @@
 # SEA-Codebuild
-Crée un projet codebuild qui va exécuter les tâches specifiées dans le fichier buildspec.yaml dans le repo GitHub de l'application.
+Crée un projet codebuild qui va exécuter les tâches spécifiées dans le fichier buildspec.yaml dans le repo GitHub de l'application.
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

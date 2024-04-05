@@ -1,0 +1,6 @@
+aws_profile           = ""
+system                = "test"
+environment           = "test"
+depot_github          = ""
+branche               = ""
+permissions_policies  = ""
