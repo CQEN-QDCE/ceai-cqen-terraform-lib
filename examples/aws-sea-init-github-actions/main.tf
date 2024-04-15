@@ -3,21 +3,18 @@ locals {
 }
 
 module "ceai_lib" {
-  #source = "github.com/CQEN-QDCE/ceai-cqen-terraform-lib?ref=2.0"
-  source = "../.."
+  source = "github.com/CQEN-QDCE/ceai-cqen-terraform-lib?ref=2.0"
 }
 
 module "sea_network" {
-  #source = "./.terraform/modules/ceai_lib/aws/sea-network"
-  source = "../../aws/sea-network"
+  source = "./.terraform/modules/ceai_lib/aws/sea-network"
   
   aws_profile = var.aws_profile
   workload_account_type = var.workload_account_type
 }
 
 module "sea_iam_identity_provider_for_github" {
-  #source = "./.terraform/modules/ceai_lib/aws/sea-iam-identity-provider-for-github"
-  source = "../../aws/sea-iam-identity-provider-for-github"
+  source = "./.terraform/modules/ceai_lib/aws/sea-iam-identity-provider-for-github"
 
   identifier = local.name
   depots_github = var.depots_github
@@ -46,8 +43,7 @@ data "aws_iam_policy_document" "idp_only_policy" {
 }
 
 module "sea_s3_bucket" {
-  #source = "./.terraform/modules/ceai_lib/aws/sea-s3-bucket"
-  source = "../../aws/sea-s3-bucket"
+  source = "./.terraform/modules/ceai_lib/aws/sea-s3-bucket"
 
   sea_network = module.sea_network
   identifier = local.name
