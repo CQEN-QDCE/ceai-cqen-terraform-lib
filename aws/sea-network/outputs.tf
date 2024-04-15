@@ -40,7 +40,19 @@ output "default_internal_ssl_certificate" {
 
 output "elb_access_log_bucket_name" {
   value   = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
-  description = "Nom du bucket S3 oiù déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB_LOGGING_ENABLED"
+  description = "Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB_LOGGING_ENABLED"
+}
+
+/*
+output "sea_access_log_bucket_name" {
+  value   = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
+  description = "Nom du bucket S3 où déposer les logs d'accès des services requierant le stockage de logs d'accès centralisé"
+}
+*/
+
+output "s3_kms_encryption_key_arn" {
+  value   = data.external.config_rule_s3_bucket_encryption_enabled.result.arn
+  description = "Arn de la clé KMS pour encrypter un bucket S3 pour satisfaire la règle AWS Config :S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED"
 }
 
 output "web_subnet_a" {

@@ -9,14 +9,19 @@ data "aws_kms_key" "aws_backup_key" {
 resource "aws_sns_topic" "alert" {
   name = "${local.name}-sns-topic"
   kms_master_key_id = "alias/aws/sns"
-  provisioner "local-exec" {
-    command = "aws sns subscribe --topic-arn ${self.arn} --protocol email --notification-endpoint ${var.backup_alarms_email} --profile ${var.aws_profile}"
-  }
 }
 
 resource "aws_sns_topic_policy" "topic_policy" {
   arn = aws_sns_topic.alert.arn
   policy = data.aws_iam_policy_document.sns_topic_policy.json
+}
+
+resource "aws_sns_topic_subscription" "alert-subscription" {
+  topic_arn = aws_sns_topic.sns-topic.arn
+  protocol  = "email"
+  endpoint  = var.backup_alarms_email
+
+  depends_on = [ aws_sns_topic.alert ]
 }
 
 resource "aws_backup_vault_notifications" "backup_vault_notifications" {

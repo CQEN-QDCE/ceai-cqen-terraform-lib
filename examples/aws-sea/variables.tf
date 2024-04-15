@@ -1,12 +1,8 @@
-/*
-variable "aws_region" {
-  type = string
-  description = "a specific AWS region"  
-}*/
-
 variable "aws_profile" {
   type = string
-  description = "Nom du profil de connexion SSO dans le fichier .aws/config du poste qui exécute le déploiement"
+  description = "Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement"
+  nullable = true
+  default = null
 }
 
 variable "workload_account_type" {
@@ -22,5 +18,5 @@ variable "system" {
 
 variable "environment" {
   type = string
-  description = "Nom de l'environnement du sytème déployé."
+  description = "Nom de l'environnement du système déployé."
 }

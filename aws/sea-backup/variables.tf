@@ -5,7 +5,9 @@ variable "identifier" {
 
 variable "aws_profile" {
   type = string
-  description = "Nom du profil de connexion SSO dans le fichier .aws/profile du poste qui exécute le déploiement"
+  description = "Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement"
+  nullable = true
+  default = null
 }
 
 variable "backup_alarms_email" {

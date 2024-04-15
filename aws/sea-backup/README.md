@@ -1,4 +1,6 @@
-# SEA-Backup-RDS-EFS
+## SEA Backup
+
+Plan de sauvegarde dans AWS Backup pour les ressources compatibles (BD RDS, Volumes)
 
 ## Providers
 
@@ -6,11 +8,7 @@
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
-## Modules
-
-No modules.
-
-## Ressources
+## Resources
 
 | Name | Type |
 |------|------|
@@ -24,6 +22,7 @@ No modules.
 | [aws_iam_role_policy.restore-service-aws-backup-role-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_sns_topic.alert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_policy.topic_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) | resource |
+| [aws_sns_topic_subscription.alert-subscription](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
 | [aws_caller_identity.current_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy.aws-backup-service-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.aws-restore-service-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
@@ -32,11 +31,11 @@ No modules.
 | [aws_iam_policy_document.sns_topic_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_kms_key.aws_backup_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_key) | data source |
 
-## Variables
+## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Nom du profil de connexion SSO dans le fichier .aws/profile du poste qui exécute le déploiement | `string` | n/a | yes |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement | `string` | `null` | no |
 | <a name="input_backup_alarms_email"></a> [backup\_alarms\_email](#input\_backup\_alarms\_email) | Courriel pour les alertes de sauvegarde en cas de défaillance | `string` | n/a | yes |
 | <a name="input_backup_rules"></a> [backup\_rules](#input\_backup\_rules) | L'objet règle qui spécifie une tâche planifiée utilisée pour sauvegarder une sélection de ressources. | <pre>list(object({<br>      name                     = string<br>      schedule                 = string<br>      start_window             = number<br>      completion_window        = number<br>      delete_after             = number<br>      enable_continuous_backup = bool<br>    }))</pre> | n/a | yes |
 | <a name="input_identifier"></a> [identifier](#input\_identifier) | Nom unique pour identifier les ressources AWS | `string` | n/a | yes |

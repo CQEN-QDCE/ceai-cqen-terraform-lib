@@ -1,5 +1,9 @@
 locals {
   name = "${var.identifier}-iam-idp-for-github"
+
+  allowed_sub_list = [
+    for depot in var.depots_github : "repo:${depot}:*"
+  ]
 }
 
 resource "aws_iam_openid_connect_provider" "identity_provider" {
@@ -23,7 +27,7 @@ data "aws_iam_policy_document" "github_trust_policy" {
     condition {
       test     = "ForAnyValue:StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.depot_github}:ref:refs/heads/${var.branche}"]
+      values   = local.allowed_sub_list
     }
     condition {
       test     = "ForAnyValue:StringEquals"

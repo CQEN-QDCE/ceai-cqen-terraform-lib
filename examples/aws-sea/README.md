@@ -1,7 +1,4 @@
-<!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
+# Exemple d'un déploiement ECS - RDS Aurora
 
 ## Providers
 
@@ -29,13 +26,11 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Nom du profil de connexion SSO dans le fichier .aws/config du poste qui exécute le déploiement | `string` | n/a | yes |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | a specific AWS region | `string` | n/a | yes |
-| <a name="input_environment"></a> [environment](#input\_environment) | Nom de l'environnement du sytème déployé. | `string` | n/a | yes |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement | `string` | `null` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Nom de l'environnement du système déployé. | `string` | n/a | yes |
 | <a name="input_system"></a> [system](#input\_system) | Nom du système déployé. | `string` | `"Exemple"` | no |
 | <a name="input_workload_account_type"></a> [workload\_account\_type](#input\_workload\_account\_type) | Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod] | `string` | n/a | yes |
 
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
