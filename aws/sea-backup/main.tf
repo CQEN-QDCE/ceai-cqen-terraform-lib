@@ -17,7 +17,7 @@ resource "aws_sns_topic_policy" "topic_policy" {
 }
 
 resource "aws_sns_topic_subscription" "alert-subscription" {
-  topic_arn = aws_sns_topic.sns-topic.arn
+  topic_arn = aws_sns_topic.alert.arn
   protocol  = "email"
   endpoint  = var.backup_alarms_email
 
@@ -61,7 +61,7 @@ resource "aws_backup_plan" "backup_plan" {
 }
 
 resource "aws_backup_selection" "backup" {
-  iam_role_arn = aws_iam_role.aws-backup-service-role.arn
+  iam_role_arn = aws_iam_role.aws_backup_service_role.arn
   name         = "${local.name}-rds"
   plan_id      = aws_backup_plan.backup_plan.id
   selection_tag {
