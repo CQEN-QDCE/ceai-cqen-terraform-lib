@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "github_trust_policy" {
       ]
     }
     condition {
-      test     = "ForAnyValue:StringEquals"
+      test     = "ForAnyValue:StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values   = local.allowed_sub_list
     }
