@@ -2,20 +2,11 @@
 
 Crée un service ECS Fargate pouvant déployer une tâche conteneurisée
 
-!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-No modules.
 
 ## Resources
 
@@ -48,13 +39,13 @@ No modules.
 | <a name="input_internal_endpoint_protocol"></a> [internal\_endpoint\_protocol](#input\_internal\_endpoint\_protocol) | Protocol utilisé par le endpoint interne du service. | `string` | `"HTTPS"` | no |
 | <a name="input_sea_network"></a> [sea\_network](#input\_sea\_network) | Données du module sea-network | `any` | n/a | yes |
 | <a name="input_task_container_name"></a> [task\_container\_name](#input\_task\_container\_name) | Nom du conteneur à déployer dans le service. Doit être le même que spécifié au task\_definition. | `string` | n/a | yes |
-| <a name="input_task_cpu_target_use"></a> [task\_cpu\_target\_use](#input\_task\_cpu\_target\_use) | Pourcentage idéal d'utlisation des ressources de calcul. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre. | `number` | `85` | no |
+| <a name="input_task_cpu_target_use"></a> [task\_cpu\_target\_use](#input\_task\_cpu\_target\_use) | Pourcentage idéal d'utilisation des ressources de calcul. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre. | `number` | `85` | no |
 | <a name="input_task_definition"></a> [task\_definition](#input\_task\_definition) | Définition json de la tâche du service | `string` | n/a | yes |
 | <a name="input_task_healthcheck_path"></a> [task\_healthcheck\_path](#input\_task\_healthcheck\_path) | Url relative à vérifier pour effectuer un healthcheck. Cette url doit renvoyer un code de réponse HTTP 200 OK si le service fonctionne. | `string` | n/a | yes |
 | <a name="input_task_healthcheck_protocol"></a> [task\_healthcheck\_protocol](#input\_task\_healthcheck\_protocol) | Protocole à utiliser pour le healthcheck. (defaut HTTP) | `string` | `"HTTP"` | no |
 | <a name="input_task_maximum_count"></a> [task\_maximum\_count](#input\_task\_maximum\_count) | Nombre maximum d'instance de la tâche à laquelle l'autoscaling peut augmenter. | `number` | n/a | yes |
 | <a name="input_task_memory"></a> [task\_memory](#input\_task\_memory) | Quantité de GB de mémoire maximum alloué à une instance de tâche. | `string` | n/a | yes |
-| <a name="input_task_memory_target_use"></a> [task\_memory\_target\_use](#input\_task\_memory\_target\_use) | Pourcentage idéal d'utlisation de la mémoire. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre. | `number` | `85` | no |
+| <a name="input_task_memory_target_use"></a> [task\_memory\_target\_use](#input\_task\_memory\_target\_use) | Pourcentage idéal d'utilisation de la mémoire. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre. | `number` | `85` | no |
 | <a name="input_task_minimum_count"></a> [task\_minimum\_count](#input\_task\_minimum\_count) | Nombre minimum d'instance de la tâche à laquelle l'autoscaling peut abaisser. | `number` | n/a | yes |
 | <a name="input_task_port"></a> [task\_port](#input\_task\_port) | Port utilisé par le conteneur du service | `number` | n/a | yes |
 | <a name="input_task_protocol"></a> [task\_protocol](#input\_task\_protocol) | Protocol utilisé par le conteneur du service | `string` | n/a | yes |
@@ -71,4 +62,4 @@ No modules.
 | <a name="output_ecs_service_name"></a> [ecs\_service\_name](#output\_ecs\_service\_name) | Nom du service ECS |
 | <a name="output_ecs_task_definition_arn"></a> [ecs\_task\_definition\_arn](#output\_ecs\_task\_definition\_arn) | ARN de la tâche ECS |
 | <a name="output_ecs_task_definition_id"></a> [ecs\_task\_definition\_id](#output\_ecs\_task\_definition\_id) | Identifiant de la tâche ECS |
-<!-- END_TF_DOCS -->
+| <a name="output_ecs_task_volume_arn_list"></a> [ecs\_task\_volume\_arn\_list](#output\_ecs\_task\_volume\_arn\_list) | Liste des arn des volumes EFS créés |

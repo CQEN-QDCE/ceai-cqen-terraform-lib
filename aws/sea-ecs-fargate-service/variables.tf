@@ -52,13 +52,13 @@ variable task_maximum_count {
 }
 
 variable task_cpu_target_use {
-  description = "Pourcentage idéal d'utlisation des ressources de calcul. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre."
+  description = "Pourcentage idéal d'utilisation des ressources de calcul. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre."
   type = number
   default = 85
 }
 
 variable task_memory_target_use {
-  description = "Pourcentage idéal d'utlisation de la mémoire. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre."
+  description = "Pourcentage idéal d'utilisation de la mémoire. L'autoscaling ajuste le nombre d'instance par rapport à ce nombre."
   type = number
   default = 85
 }
