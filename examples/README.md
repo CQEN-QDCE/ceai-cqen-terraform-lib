@@ -1,4 +1,4 @@
-# Exemple de déploiement utilisant la librairie AWS
+# Exemples d'utilisation de la librairie
 
 ## Modules déployés
 
@@ -54,7 +54,7 @@
     terraform apply -var-file=./environments/test/terraform.tfvars
     ```
 
-8. Lancer la commande `destroy`, pour suppprimer les services déployés.
+8. Lancer la commande `destroy`, pour supprimer les services déployés.
     ```
     terraform destroy -var-file=./environments/test/terraform.tfvars
     ```

@@ -1,0 +1,10 @@
+# General
+aws_profile           = ""
+app_buildspec_path    = ""
+app_name              = ""
+app_path              = ""
+github_repo_branch    = ""
+github_repo_url       = ""
+system                = ""
+environment           = ""
+

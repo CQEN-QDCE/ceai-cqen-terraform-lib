@@ -27,13 +27,14 @@ variable "max_capacity" {
   type = number
 }
 
-variable "vpc_db_security_group_id" {
-  description = "Un groupe de sécurité supplémentaire associé à RDS"
-  type = string
+variable "vpc_db_additional_security_group_ids" {
+  description = "(Optionnel) Identifiants de groupes de sécurité supplémentaire associé à RDS"
+  type = list(string)
+  default = []
 }
 
 variable "engine_version" {
-  description = "La version du moteur de la base de données."
+  description = "(Optionnel) La version du moteur de la base de données."
   type = string
-  default = "8.0.mysql_aurora.3.03.0"
+  default = "8.0.mysql_aurora.3.04"
 }

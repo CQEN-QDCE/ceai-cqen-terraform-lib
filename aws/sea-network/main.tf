@@ -66,6 +66,10 @@ data "external" "config_rule_elb_logging_enabled" {
   program = ["${path.module}/external/elb_log_bucket_name.sh", "${var.aws_profile}"]
 }
 
+data "external" "config_rule_s3_bucket_encryption_enabled" {
+  program = ["${path.module}/external/s3_kms_encryption_key.sh", "${var.aws_profile}"]
+}
+
 data "aws_subnet" "web_subnet_a" {
   filter {
     name   = "vpc-id"

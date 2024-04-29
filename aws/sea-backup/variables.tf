@@ -3,11 +3,6 @@ variable "identifier" {
   type = string
 }
 
-variable "aws_profile" {
-  type = string
-  description = "Nom du profil de connexion SSO dans le fichier .aws/profile du poste qui exécute le déploiement"
-}
-
 variable "backup_alarms_email" {
     type = string
     description = "Courriel pour les alertes de sauvegarde en cas de défaillance"
