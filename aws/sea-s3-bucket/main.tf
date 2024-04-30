@@ -29,7 +29,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3_bucket_encrypt
 data "aws_iam_policy_document" "s3_secure_transport_policy" {
   statement {
     sid = "AllowSSLRequestsOnly"
-    
+
     principals {
       type        = "*"
       identifiers = ["*"]
@@ -47,9 +47,9 @@ data "aws_iam_policy_document" "s3_secure_transport_policy" {
     ]
 
     condition {
-      test = "Bool"
+      test     = "Bool"
       variable = "aws:SecureTransport"
-      values = ["false"]
+      values   = ["false"]
     }
   }
 }

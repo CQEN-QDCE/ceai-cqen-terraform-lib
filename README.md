@@ -122,7 +122,7 @@ provider "aws" {
     }
 }
 ```
-## Ajouter un module à la librairie
+## Contribuer un module à la librairie
 
 Pour contribuer un module à la librairie assurez-vous que celui-ci respecte certaines règles de base:
 * Suivre la nomenclature des répertoires en cours: [fournisseur]/[nom-du-module];
@@ -135,6 +135,7 @@ Pour contribuer un module à la librairie assurez-vous que celui-ci respecte cer
     terraform-docs markdown . > README.md
     ```
 * Taguer la publication d'une nouvelle version lorsque le module est migré dans la branche prod.
+* Appliquer le formalisme Terraform au code: `terraform fmt`
 
 ### Règles spécifiques aux modules AWS-SEA
 

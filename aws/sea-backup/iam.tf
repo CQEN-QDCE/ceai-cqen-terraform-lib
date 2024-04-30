@@ -31,12 +31,12 @@ resource "aws_iam_role" "aws_backup_service_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "backup_service_aws_backup_role_policy" {
-  role   = aws_iam_role.aws_backup_service_role.name
+  role       = aws_iam_role.aws_backup_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
 }
 
 resource "aws_iam_role_policy_attachment" "restore_service_aws_backup_role_policy" {
-  role   = aws_iam_role.aws_backup_service_role.name
+  role       = aws_iam_role.aws_backup_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
 }
 
