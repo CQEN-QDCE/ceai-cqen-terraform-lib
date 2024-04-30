@@ -1,0 +1,7 @@
+name: Contributions tests
+
+on: [ pull_request ]
+
+jobs:
+  tf-lint:
+    uses: ./tf-lint.yml
