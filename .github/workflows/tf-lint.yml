@@ -5,11 +5,11 @@ on: [ workflow_call ]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Valide le formattage et la syntaxe
+    name: Validation formattage et syntaxe
     steps:
       - name: Checkout
         uses: actions/checkout@main
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@main
       - name: Terraform format check
-        run: terraform fmt -check
+        run: terraform fmt -check -recursive
