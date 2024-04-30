@@ -1,7 +1,10 @@
 name: Contributions tests
 
-on: [ pull_request ]
+on:
+  pull_request:
+    branches: ["release/*", "main"]
 
 jobs:
   tf-lint:
-    uses: ./tf-lint.yml
+    name: Tests sur contributions
+    uses: ./.github/workflows/tf-lint.yml
