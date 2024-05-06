@@ -5,7 +5,7 @@ on: [ workflow_call ]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Validation formattage et syntaxe
+    name: Validation formatage et syntaxe
     steps:
       - name: Checkout
         uses: actions/checkout@main

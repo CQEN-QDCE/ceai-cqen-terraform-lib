@@ -127,6 +127,7 @@ provider "aws" {
 Pour contribuer un module à la librairie assurez-vous que celui-ci respecte certaines règles de base:
 * Suivre la nomenclature des répertoires en cours: [fournisseur]/[nom-du-module];
 * Créer un exemple démontrant l'utilisation de votre module dans le répertoire `examples`, celui-ci vous servira de tests;
+* Appliquer le formatage Terraform au code: `terraform fmt -recursive`
 * Générer la documentation de votre module à l'aide de [Terraform-docs](https://github.com/terraform-docs/terraform-docs/);
     ```bash
     # Sur un système ayant l'environnement golang installé
@@ -134,8 +135,10 @@ Pour contribuer un module à la librairie assurez-vous que celui-ci respecte cer
     cd [repertoire module]
     terraform-docs markdown . > README.md
     ```
-* Taguer la publication d'une nouvelle version lorsque le module est migré dans la branche prod.
-* Appliquer le formalisme Terraform au code: `terraform fmt`
+* Créer une branche `release/vX.X-rcX` Pour un premier release candidate, s'il n'y en a pas en cours.
+* Taguer le *release candidate* dans la branche release quand il est prêt.
+* Contacter un mainteneur pour migrer et taguer la nouvelle version dans la branche *main* 
+
 
 ### Règles spécifiques aux modules AWS-SEA
 
