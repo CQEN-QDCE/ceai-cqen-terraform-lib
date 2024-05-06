@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = var.identifier
 }
 
 data "aws_kms_key" "aws_backup_key" {
@@ -7,12 +7,12 @@ data "aws_kms_key" "aws_backup_key" {
 }
 
 resource "aws_sns_topic" "alert" {
-  name = "${local.name}-sns-topic"
+  name              = "${local.name}-sns-topic"
   kms_master_key_id = "alias/aws/sns"
 }
 
 resource "aws_sns_topic_policy" "topic_policy" {
-  arn = aws_sns_topic.alert.arn
+  arn    = aws_sns_topic.alert.arn
   policy = data.aws_iam_policy_document.sns_topic_policy.json
 }
 
@@ -21,7 +21,7 @@ resource "aws_sns_topic_subscription" "alert-subscription" {
   protocol  = "email"
   endpoint  = var.backup_alarms_email
 
-  depends_on = [ aws_sns_topic.alert ]
+  depends_on = [aws_sns_topic.alert]
 }
 
 resource "aws_backup_vault_notifications" "backup_vault_notifications" {
@@ -69,8 +69,8 @@ resource "aws_backup_selection" "backup" {
     key   = "Backup"
     value = "True"
   }
-  resources       = var.ressources_arn
-  
+  resources = var.ressources_arn
+
   depends_on = [
     var.ressources_arn
   ]
