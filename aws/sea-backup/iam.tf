@@ -1,4 +1,6 @@
-data "aws_iam_policy_document" "aws-backup-service-assume-role-policy" {
+data "aws_caller_identity" "current_account" {}
+
+data "aws_iam_policy_document" "aws_backup_service_assume_role_policy" {
   statement {
     sid     = "AssumeServiceRole"
     actions = ["sts:AssumeRole"]
@@ -10,20 +12,9 @@ data "aws_iam_policy_document" "aws-backup-service-assume-role-policy" {
   }
 }
 
-/* The policies that allow the backup service to take backups and restores */
-data "aws_iam_policy" "aws-backup-service-policy" {
-  arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
-}
-
-data "aws_iam_policy" "aws-restore-service-policy" {
-  arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
-}
-
-data "aws_caller_identity" "current_account" {}
-
 /* Needed to allow the backup service to restore from a snapshot to an EC2 instance
  See https://stackoverflow.com/questions/61802628/aws-backup-missing-permission-iampassrole */
-data "aws_iam_policy_document" "pass-role-policy-doc" {
+data "aws_iam_policy_document" "pass_role_policy_doc" {
   statement {
     sid       = "PassRole"
     actions   = ["iam:PassRole"]
@@ -33,25 +24,25 @@ data "aws_iam_policy_document" "pass-role-policy-doc" {
 }
 
 /* Roles for taking AWS Backups */
-resource "aws_iam_role" "aws-backup-service-role" {
+resource "aws_iam_role" "aws_backup_service_role" {
   name               = "${local.name}-AWSBackupServiceRole"
   description        = "Allows the AWS Backup Service to take scheduled backups"
-  assume_role_policy = data.aws_iam_policy_document.aws-backup-service-assume-role-policy.json
+  assume_role_policy = data.aws_iam_policy_document.aws_backup_service_assume_role_policy.json
 }
 
-resource "aws_iam_role_policy" "backup-service-aws-backup-role-policy" {
-  policy = data.aws_iam_policy.aws-backup-service-policy.policy
-  role   = aws_iam_role.aws-backup-service-role.name
+resource "aws_iam_role_policy_attachment" "backup_service_aws_backup_role_policy" {
+  role       = aws_iam_role.aws_backup_service_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
 }
 
-resource "aws_iam_role_policy" "restore-service-aws-backup-role-policy" {
-  policy = data.aws_iam_policy.aws-restore-service-policy.policy
-  role   = aws_iam_role.aws-backup-service-role.name
+resource "aws_iam_role_policy_attachment" "restore_service_aws_backup_role_policy" {
+  role       = aws_iam_role.aws_backup_service_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
 }
 
-resource "aws_iam_role_policy" "backup-service-pass-role-policy" {
-  policy = data.aws_iam_policy_document.pass-role-policy-doc.json
-  role   = aws_iam_role.aws-backup-service-role.name
+resource "aws_iam_role_policy" "backup_service_pass_role_policy" {
+  policy = data.aws_iam_policy_document.pass_role_policy_doc.json
+  role   = aws_iam_role.aws_backup_service_role.name
 }
 
 /* policy for SNS */

@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_ecs_cluster" "cluster" {
-  name = "${local.name}"
+  name = local.name
   setting {
     name  = "containerInsights"
     value = "disabled"

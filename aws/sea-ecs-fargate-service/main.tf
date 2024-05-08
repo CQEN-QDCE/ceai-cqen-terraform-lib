@@ -7,10 +7,10 @@ locals {
 data "aws_caller_identity" "current" {}
 
 resource "aws_lb_target_group" "alb_tg" {
-  name     = "${local.name}-tg"
-  port     = var.internal_endpoint_port
-  protocol = var.internal_endpoint_protocol
-  vpc_id   = var.sea_network.shared_vpc.id
+  name        = "${local.name}-tg"
+  port        = var.internal_endpoint_port
+  protocol    = var.internal_endpoint_protocol
+  vpc_id      = var.sea_network.shared_vpc.id
   target_type = "ip"
   lifecycle {
     create_before_destroy = true
@@ -40,9 +40,9 @@ resource "aws_lb" "alb" {
 }
 
 resource "aws_lb_listener" "alb_listener" {
-  load_balancer_arn  = aws_lb.alb.arn
-  port               = var.internal_endpoint_port
-  protocol           = var.internal_endpoint_protocol
+  load_balancer_arn = aws_lb.alb.arn
+  port              = var.internal_endpoint_port
+  protocol          = var.internal_endpoint_protocol
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_tg.arn
@@ -54,19 +54,19 @@ resource "aws_lb_listener" "alb_listener" {
 # IAM
 data "aws_iam_policy_document" "ecs_task_execution_role_policy_doc" {
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["ecs-tasks.amazonaws.com"]
     }
   }
-} 
+}
 
 resource "aws_iam_policy" "policy" {
   name        = "${local.name}-TaskExecPolicy"
   description = "Policy pour execution task ECS"
-  policy      =  <<EOF
+  policy      = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -101,7 +101,7 @@ EOF
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name  = "${local.name}-TaskExecRole"
+  name               = "${local.name}-TaskExecRole"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_role_policy_doc.json
   path               = "/${var.identifier}/"
 }
@@ -116,13 +116,13 @@ resource "aws_iam_policy_attachment" "iam_policy_attachment" {
 # EFS
 
 resource "aws_efs_file_system" "efs_fs" {
-  for_each    = var.volume_efs
+  for_each = var.volume_efs
 
   performance_mode = "generalPurpose"
   throughput_mode  = "bursting"
   encrypted        = "true"
-  tags             = {
-      Name = each.value.name
+  tags = {
+    Name = each.value.name
   }
 }
 
@@ -131,8 +131,8 @@ resource "aws_efs_access_point" "efs_ap" {
 
   file_system_id = each.value.id
   tags = {
-      Name = each.value.tags_all.Name
-      file_system_id = each.value.id
+    Name           = each.value.tags_all.Name
+    file_system_id = each.value.id
   }
 }
 
@@ -155,8 +155,8 @@ resource "aws_ecs_task_definition" "app_task" {
       name = volume.value.tags.Name
 
       efs_volume_configuration {
-        file_system_id          = volume.value.file_system_id
-        transit_encryption      = "ENABLED"
+        file_system_id     = volume.value.file_system_id
+        transit_encryption = "ENABLED"
 
         authorization_config {
           access_point_id = volume.value.id
@@ -166,8 +166,6 @@ resource "aws_ecs_task_definition" "app_task" {
 
     }
   }
-
-  #depends_on = [ aws_secretsmanager_secret_version.passbolt_app_secret ]
 }
 
 #-------------------------------------------------------------------------------
@@ -176,7 +174,7 @@ resource "aws_ecs_task_definition" "app_task" {
 /* Retrouve la version de la tâche la plus récente */
 data "aws_ecs_task_definition" "app_task" {
   task_definition = aws_ecs_task_definition.app_task.family
-  depends_on = [aws_ecs_task_definition.app_task]
+  depends_on      = [aws_ecs_task_definition.app_task]
 }
 
 resource "aws_ecs_service" "app_service" {
@@ -188,9 +186,9 @@ resource "aws_ecs_service" "app_service" {
   launch_type                        = "FARGATE"
   force_new_deployment               = true
   network_configuration {
-     subnets         = var.sea_network.app_subnets.ids
-     security_groups = [var.sea_network.app_security_group.id]
-     assign_public_ip = false
+    subnets          = var.sea_network.app_subnets.ids
+    security_groups  = [var.sea_network.app_security_group.id]
+    assign_public_ip = false
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.alb_tg.arn
@@ -200,7 +198,7 @@ resource "aws_ecs_service" "app_service" {
   lifecycle {
     ignore_changes = [desired_count]
   }
-  depends_on = [ aws_iam_role.ecs_task_execution_role, aws_ecs_task_definition.app_task, aws_lb_listener.alb_listener, aws_lb.alb, aws_lb_target_group.alb_tg ]
+  depends_on = [aws_iam_role.ecs_task_execution_role, aws_ecs_task_definition.app_task, aws_lb_listener.alb_listener, aws_lb.alb, aws_lb_target_group.alb_tg]
 }
 
 #-------------------------------------------------------------------------------
@@ -242,6 +240,6 @@ resource "aws_appautoscaling_policy" "ecs_scaling_policy_memory" {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"
     }
 
-    target_value       = var.task_cpu_target_use
+    target_value = var.task_cpu_target_use
   }
 }

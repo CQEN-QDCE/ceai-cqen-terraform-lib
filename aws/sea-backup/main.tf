@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = var.identifier
 }
 
 data "aws_kms_key" "aws_backup_key" {
@@ -7,16 +7,21 @@ data "aws_kms_key" "aws_backup_key" {
 }
 
 resource "aws_sns_topic" "alert" {
-  name = "${local.name}-sns-topic"
+  name              = "${local.name}-sns-topic"
   kms_master_key_id = "alias/aws/sns"
-  provisioner "local-exec" {
-    command = "aws sns subscribe --topic-arn ${self.arn} --protocol email --notification-endpoint ${var.backup_alarms_email} --profile ${var.aws_profile}"
-  }
 }
 
 resource "aws_sns_topic_policy" "topic_policy" {
-  arn = aws_sns_topic.alert.arn
+  arn    = aws_sns_topic.alert.arn
   policy = data.aws_iam_policy_document.sns_topic_policy.json
+}
+
+resource "aws_sns_topic_subscription" "alert-subscription" {
+  topic_arn = aws_sns_topic.alert.arn
+  protocol  = "email"
+  endpoint  = var.backup_alarms_email
+
+  depends_on = [aws_sns_topic.alert]
 }
 
 resource "aws_backup_vault_notifications" "backup_vault_notifications" {
@@ -56,7 +61,7 @@ resource "aws_backup_plan" "backup_plan" {
 }
 
 resource "aws_backup_selection" "backup" {
-  iam_role_arn = aws_iam_role.aws-backup-service-role.arn
+  iam_role_arn = aws_iam_role.aws_backup_service_role.arn
   name         = "${local.name}-rds"
   plan_id      = aws_backup_plan.backup_plan.id
   selection_tag {
@@ -64,8 +69,8 @@ resource "aws_backup_selection" "backup" {
     key   = "Backup"
     value = "True"
   }
-  resources       = var.ressources_arn
-  
+  resources = var.ressources_arn
+
   depends_on = [
     var.ressources_arn
   ]

@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}"
+  name = var.identifier
 }
 
 # CREATE ECR

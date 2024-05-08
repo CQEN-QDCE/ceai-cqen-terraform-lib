@@ -45,7 +45,7 @@ module "sea_network" {
 
 ## Bonnes pratiques d'utilisation
 
-Les librairies tiennent compte de l'utilisation de certaines bonnes pratiques dans leur fonctionnement.
+Les modules tiennent compte de l'utilisation de certaines bonnes pratiques dans leur fonctionnement.
 
 ### AWS
 
@@ -63,7 +63,7 @@ region = ca-central-1
 output = json
 ```
 
-Votre déploiement devra connaitre le nom du profil utilisé pour se connecter à AWS. L'utilisation d'une variable est recommandée.
+Votre déploiement devra connaître le nom du profil utilisé pour se connecter à AWS. L'utilisation d'une variable est recommandée.
 
 ```terraform
 variable "aws_profile" {
@@ -73,7 +73,7 @@ variable "aws_profile" {
 ```
 #### Identifier le type de compte SEA de travail utilisé
 
-Les modules pour les ressources à déployer dans SEA sont presque tous dépendant du module `sea-network`. Celui-ci doit connaitre le type de compte de travail utilisé (Sandbox, Dev ou Prod). L'utilisation d'une variable est recommandée.
+Les modules pour les ressources à déployer dans SEA sont presque tous dépendant du module `sea-network`. Celui-ci doit connaître le type de compte de travail utilisé (Sandbox, Dev ou Prod). L'utilisation d'une variable est recommandée.
 
 ```terraform
 variable "workload_account_type" {
@@ -122,6 +122,27 @@ provider "aws" {
     }
 }
 ```
+## Contribuer un module à la librairie
+
+Pour contribuer un module à la librairie assurez-vous que celui-ci respecte certaines règles de base:
+* Suivre la nomenclature des répertoires en cours: [fournisseur]/[nom-du-module];
+* Créer un exemple démontrant l'utilisation de votre module dans le répertoire `examples`, celui-ci vous servira de tests;
+* Appliquer le formatage Terraform au code: `terraform fmt -recursive`
+* Générer la documentation de votre module à l'aide de [Terraform-docs](https://github.com/terraform-docs/terraform-docs/);
+    ```bash
+    # Sur un système ayant l'environnement golang installé
+    go install -v github.com/terraform-docs/terraform-docs@latest
+    cd [repertoire module]
+    terraform-docs markdown . > README.md
+    ```
+* Créer une branche `release/vX.X-rcX` Pour un premier release candidate, s'il n'y en a pas en cours.
+* Taguer le *release candidate* dans la branche release quand il est prêt.
+* Contacter un mainteneur pour migrer et taguer la nouvelle version dans la branche *main* 
+
+
+### Règles spécifiques aux modules AWS-SEA
+
+* Utiliser le modules `aws-sea-network` pour retrouver les VPC du compte de travail.
 
 ## License
 

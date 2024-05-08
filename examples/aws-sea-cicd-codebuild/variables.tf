@@ -1,21 +1,19 @@
-variable "identifier" {
-  description = "Nom unique pour identifier les ressources AWS"
+variable "aws_profile" {
   type        = string
+  description = "Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement"
+  nullable    = true
+  default     = null
 }
 
-variable "app_name" {
+variable "system" {
   type        = string
-  description = "Nom de l'application."
+  description = "Nom du système déployé."
+  default     = "Exemple"
 }
 
-variable "app_ecr_repository_name" {
+variable "environment" {
   type        = string
-  description = "Nom du repo AWS ECR de l'image docker de l'application."
-}
-
-variable "app_ecs_container_name" {
-  type        = string
-  description = "Nom du container AWS ECS de l'application."
+  description = "Nom de l'environnement du sytème déployé."
 }
 
 variable "github_repo_url" {
@@ -33,7 +31,12 @@ variable "app_buildspec_path" {
   description = "Path du fichier buildspec de l'application dans le repo GitHub."
 }
 
+variable "app_name" {
+  type        = string
+  description = "Nom de l'application."
+}
+
 variable "app_path" {
   type        = string
   description = "Path de l'application dans le repo GitHub."
-}  
+}
