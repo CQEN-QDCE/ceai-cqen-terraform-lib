@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Paramètres de la commande
-ARGS+=( --config-rule-names ASEA-S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED )
+ARGS+=( --config-rule-names ASEA-LZA-S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED )
 
 ARGS+=( --query 'RemediationConfigurations[0].Parameters.KMSMasterKey.StaticValue.Values[0]' )
 
