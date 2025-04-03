@@ -34,7 +34,7 @@ output "data_security_group" {
 }
 
 output "default_internal_ssl_certificate" {
-  value       = var.workload_account_type == "Sandbox" ? null : data.aws_acm_certificate[0].default_internal_ssl_certificate
+  value       = var.workload_account_type == "Sandbox" ? null : data.aws_acm_certificate.default_internal_ssl_certificate
   description = "Certificat SSL interne par défaut du compte"
 }
 
