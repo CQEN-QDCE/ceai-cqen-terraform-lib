@@ -63,10 +63,12 @@ data "aws_acm_certificate" "default_internal_ssl_certificate" {
 }
 
 data "external" "config_rule_elb_logging_enabled" {
+  count   = var.workload_account_type == "sandbox" ? 0 : 1
   program = ["${path.module}/external/elb_log_bucket_name.sh", "${var.aws_profile}"]
 }
 
 data "external" "config_rule_s3_bucket_encryption_enabled" {
+  count   = var.workload_account_type == "sandbox" ? 0 : 1
   program = ["${path.module}/external/s3_kms_encryption_key.sh", "${var.aws_profile}"]
 }
 
