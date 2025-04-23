@@ -34,12 +34,12 @@ output "data_security_group" {
 }
 
 output "default_internal_ssl_certificate" {
-  value       = data.aws_acm_certificate.default_internal_ssl_certificate
+  value       = var.workload_account_type == "Sandbox" ? null : data.aws_acm_certificate.default_internal_ssl_certificate
   description = "Certificat SSL interne par défaut du compte"
 }
 
 output "elb_access_log_bucket_name" {
-  value       = data.external.config_rule_elb_logging_enabled.result.s3BucketNames
+  value       = var.workload_account_type == "Sandbox" ? null : data.external.config_rule_elb_logging_enabled[0].result.s3BucketNames
   description = "Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB_LOGGING_ENABLED"
 }
 
@@ -51,7 +51,7 @@ output "sea_access_log_bucket_name" {
 */
 
 output "s3_kms_encryption_key_arn" {
-  value       = data.external.config_rule_s3_bucket_encryption_enabled.result.arn
+  value       = var.workload_account_type == "Sandbox" ? null : data.external.config_rule_s3_bucket_encryption_enabled[0].result.arn
   description = "Arn de la clé KMS pour encrypter un bucket S3 pour satisfaire la règle AWS Config :S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED"
 }
 

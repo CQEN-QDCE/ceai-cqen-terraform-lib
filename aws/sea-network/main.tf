@@ -59,14 +59,17 @@ data "aws_security_group" "data_security_group" {
 }
 
 data "aws_acm_certificate" "default_internal_ssl_certificate" {
+  count  = var.workload_account_type == "Sandbox" ? 0 : 1
   domain = "*.asea.cqen.org"
 }
 
 data "external" "config_rule_elb_logging_enabled" {
+  count   = var.workload_account_type == "Sandbox" ? 0 : 1
   program = ["${path.module}/external/elb_log_bucket_name.sh", "${var.aws_profile}"]
 }
 
 data "external" "config_rule_s3_bucket_encryption_enabled" {
+  count   = var.workload_account_type == "Sandbox" ? 0 : 1
   program = ["${path.module}/external/s3_kms_encryption_key.sh", "${var.aws_profile}"]
 }
 
