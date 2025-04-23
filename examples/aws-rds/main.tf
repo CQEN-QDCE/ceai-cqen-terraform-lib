@@ -1,5 +1,5 @@
 locals {
-  name           = "${var.system}-${var.environment}"
+  name = "${var.system}-${var.environment}"
 }
 
 module "ceai_lib" {
@@ -41,15 +41,15 @@ module "aurora-postgresql" {
   source = "./.terraform/modules/ceai_lib/aws/sea-rds"
   #source = "../../aws/sea-rds-aurora-mysql"
 
-  sea_network  = module.sea_network
-  engine      = "aurora-postgresql"
-  engine_mode = "provisioned" # Serverless v2 uses the provisioned engine_mode.
+  sea_network    = module.sea_network
+  engine         = "aurora-postgresql"
+  engine_mode    = "provisioned" # Serverless v2 uses the provisioned engine_mode.
   engine_version = "13.6"
-  identifier   = local.name
-  db_name      = var.system
-  db_user      = var.system
-  min_capacity = 0.5
-  max_capacity = 2
+  identifier     = local.name
+  db_name        = var.system
+  db_user        = var.system
+  min_capacity   = 0.5
+  max_capacity   = 2
 }
 
 /**
