@@ -79,7 +79,7 @@ resource "aws_rds_cluster" "rds_cluster" {
   backup_retention_period             = 30
   preferred_backup_window             = "04:00-04:30"
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
-  enabled_cloudwatch_logs_exports     = var.engine == "aurora-postgresql" ? ["postgresql","instance"] : ["audit", "error", "general", "slowquery"] 
+  enabled_cloudwatch_logs_exports     = var.engine == "aurora-postgresql" ? ["postgresql", "instance"] : ["audit", "error", "general", "slowquery"]
   deletion_protection                 = true
   depends_on                          = [aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret]
 
