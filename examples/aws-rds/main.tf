@@ -44,7 +44,7 @@ module "aurora-postgresql" {
   sea_network    = module.sea_network
   engine         = "aurora-postgresql"
   engine_mode    = "provisioned" # Serverless v2 uses the provisioned engine_mode.
-  engine_version = "13.6"
+  engine_version = "16.1"
   identifier     = local.name
   db_name        = var.system
   db_user        = var.system
