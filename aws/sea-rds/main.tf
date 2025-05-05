@@ -1,5 +1,5 @@
 locals {
-  name = "${var.identifier}-${var.engine}"
+  name      = "${var.identifier}-${var.engine}"
   timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
 }
 
