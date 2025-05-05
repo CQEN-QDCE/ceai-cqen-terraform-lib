@@ -2,6 +2,3 @@
 workload_account_type = "Dev" 
 system                = "test"
 environment           = "test"
-depots_github          = [""]
-branche               = ""
-permissions_policies  = ""

@@ -1,5 +1,6 @@
 locals {
   name = "${var.identifier}-${var.engine}"
+  timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
 }
 
 data "aws_kms_key" "rds" {
@@ -16,11 +17,11 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name = "${local.name}-rds-secret"
+  name = "${local.name}-rds-secret-${local.timestamp}"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
-  secret_id     = "${local.name}-rds-secret"
+  secret_id     = aws_secretsmanager_secret.rds_secret.name
   secret_string = <<EOF
   {
   "DB_PASS": "${random_password.db_password.result}",
