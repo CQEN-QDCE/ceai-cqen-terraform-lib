@@ -15,5 +15,5 @@ output "db_admin_user" {
 
 output "user_db_secret_arn" {
   description = "ARN du secret utilisateur dans AWS Secrets Manager."
-  value       = aws_secretsmanager_secret.user_db_secret.arn
+  value       = aws_secretsmanager_secret.user_db_app_secret.arn
 }

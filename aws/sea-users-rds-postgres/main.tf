@@ -1,6 +1,8 @@
 locals {
   name      = "${var.identifier}-${var.engine}"
   timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
+  all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY", "DROP"]
+  all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
 
 data "aws_kms_key" "rds" {
@@ -28,20 +30,19 @@ resource "aws_secretsmanager_secret" "user_db_app_secret" {
 }
 
 resource "aws_secretsmanager_secret_version" "user_db_app_secret" {
-  secret_id     = aws_secretsmanager_secret.rds_secret.name
+  secret_id     = aws_secretsmanager_secret.user_db_app_secret.name
   secret_string = <<EOF
   {
-  "DB_ADMIN_PASS": "${random_password.admin_db_password.result}",
+  "DB_ADMIN_PASS": "${random_password.admin_db_app_password.result}",
   "DB_ADMIN": "${var.db_user}",
-  "DB_PASS": "${random_password.user_db_password.result}",
+  "DB_PASS": "${random_password.user_db_app_password.result}",
   "DB_USER": "${var.db_user}"
   }
 EOF
-  depends_on    = [aws_secretsmanager_secret.rds_secret]
+  depends_on    = [aws_secretsmanager_secret.user_db_app_secret]
 }
 
 provider "postgresql" {
-  source          = "terraform.io/providers/cyrilgdn/postgresql/1.25.0"
   alias           = "admindb"
   host            = var.db_host
   port            = var.db_port
@@ -63,21 +64,23 @@ resource "postgresql_role" "admin_user_role" {
   provider = "postgresql.admindb"
   name     = var.db_admin_user
   login    = true
-  password = random_password.admin_db_password.result
+  password = random_password.admin_db_app_password.result
 }
 
 resource "postgresql_role" "user_role" {
   provider = "postgresql.admindb"
   name     = var.db_user
   login    = true
-  password = random_password.user_db_password.result
+  password = random_password.user_db_app_password.result
 }
 
-resource "postgresql_grant_role" "db_app_admin" {
+resource "postgresql_grant" "db_app_admin" {
   provider    = "postgresql.admindb"
   database    = postgresql_database.app_db.name
   role        = postgresql_role.admin_user_role.name
-  grant_role  = "admin"
+  schema      = "public"
+  object_type = "database"
+  privileges  = local.all_privileges_database
 }
 
 resource "postgresql_grant" "db_app_user" {
@@ -86,5 +89,5 @@ resource "postgresql_grant" "db_app_user" {
   role        = postgresql_role.user_role.name
   schema      = "public"
   object_type = "table"
-  privileges  = ["SELECT", "INSERT", "UPDATE", "DELETE"]
+  privileges  = local.all_privileges_table
 }
