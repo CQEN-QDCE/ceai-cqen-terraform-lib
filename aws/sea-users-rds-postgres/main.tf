@@ -41,6 +41,7 @@ EOF
 }
 
 provider "postgresql" {
+  source          = "terraform.io/providers/cyrilgdn/postgresql/1.25.0"
   alias           = "admindb"
   host            = var.db_host
   port            = var.db_port
