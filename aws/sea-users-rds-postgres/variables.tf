@@ -36,6 +36,7 @@ variable "db_host" {
 variable "db_port" {
   description = "Port de connexion à la base de données."
   type        = number
+  default     = 5432
 }
 
 variable "db_master_user" {
