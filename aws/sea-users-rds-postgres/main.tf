@@ -1,7 +1,7 @@
 locals {
   name      = "${var.identifier}-${var.engine}"
   timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
-  all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY", "DROP"]
+  all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY"]
   all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
 
@@ -51,6 +51,7 @@ provider "postgresql" {
   scheme          = "awspostgres"
   connect_timeout = 20
   sslmode         = "require"
+  superuser       = false
 }
 
 resource "postgresql_database" "app_db" {
@@ -65,7 +66,6 @@ resource "postgresql_role" "admin_user_role" {
   name      = var.db_admin_user
   login     = true
   password  = random_password.admin_db_app_password.result
-  superuser = false
 }
 
 resource "postgresql_role" "user_role" {
@@ -73,7 +73,6 @@ resource "postgresql_role" "user_role" {
   name      = var.db_user
   login     = true
   password  = random_password.user_db_app_password.result
-  superuser = false
 }
 
 resource "postgresql_grant" "db_app_admin" {
