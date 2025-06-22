@@ -52,8 +52,4 @@ No modules.
 | db_user | Nom d'utilisateur de la base de données. |
 | db_admin_user | Nom d'utilisateur administrateur de la base de données. |
 | user_db_secret_arn | ARN du secret utilisateur dans AWS Secrets Manager. |
-<!-- END_TF_DOCS -->
-
-## À venir
-
-:warning: TODO! Ce module gère la création d'une base PostgreSQL, les utilisateurs et les droits associés, ainsi que la gestion des secrets dans AWS Secrets Manager.
+<!-- END_TF_DOCS --> 

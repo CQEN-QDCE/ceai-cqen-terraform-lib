@@ -1,6 +1,5 @@
 locals {
-  name      = "${var.identifier}-${var.engine}"
-  timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
+  name                    = "${var.identifier}-${var.engine}"
   all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY"]
   all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
@@ -25,8 +24,14 @@ resource "random_password" "user_db_app_password" {
   override_special = "!?"
 }
 
+resource "random_string" "secret_name" {
+  length  = 16
+  special = false
+  upper   = false
+}
+
 resource "aws_secretsmanager_secret" "user_db_app_secret" {
-  name = "${local.name}-rds-secret-${local.timestamp}"
+  name = "${local.name}-rds-users-secret-${random_string.secret_name.result}"
 }
 
 resource "aws_secretsmanager_secret_version" "user_db_app_secret" {
@@ -62,17 +67,17 @@ resource "postgresql_database" "app_db" {
 }
 
 resource "postgresql_role" "admin_user_role" {
-  provider  = "postgresql.admindb"
-  name      = var.db_admin_user
-  login     = true
-  password  = random_password.admin_db_app_password.result
+  provider = "postgresql.admindb"
+  name     = var.db_admin_user
+  login    = true
+  password = random_password.admin_db_app_password.result
 }
 
 resource "postgresql_role" "user_role" {
-  provider  = "postgresql.admindb"
-  name      = var.db_user
-  login     = true
-  password  = random_password.user_db_app_password.result
+  provider = "postgresql.admindb"
+  name     = var.db_user
+  login    = true
+  password = random_password.user_db_app_password.result
 }
 
 resource "postgresql_grant" "db_app_admin" {
