@@ -1,6 +1,5 @@
 locals {
-  name      = "${var.identifier}-${var.engine}"
-  timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
+  name = "${var.identifier}-${var.engine}"
 }
 
 data "aws_kms_key" "rds" {
@@ -17,7 +16,7 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name = "${local.name}-rds-secret-${local.timestamp}"
+  name = "${local.name}-rds-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
@@ -73,7 +72,7 @@ resource "aws_rds_cluster" "rds_cluster" {
   master_password                     = random_password.db_password.result
   storage_encrypted                   = true
   kms_key_id                          = data.aws_kms_key.rds.arn
-  iam_database_authentication_enabled = false
+  iam_database_authentication_enabled = true
   vpc_security_group_ids              = setunion([var.sea_network.data_security_group.id], var.vpc_db_additional_security_group_ids)
   skip_final_snapshot                 = false
   final_snapshot_identifier           = "${local.name}-snapshot"
@@ -82,6 +81,7 @@ resource "aws_rds_cluster" "rds_cluster" {
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
   enabled_cloudwatch_logs_exports     = var.engine == "aurora-postgresql" ? ["postgresql", "instance"] : ["audit", "error", "general", "slowquery"]
   deletion_protection                 = true
+  copy_tags_to_snapshot               = true
   depends_on                          = [aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret]
 
   lifecycle {
@@ -91,6 +91,22 @@ resource "aws_rds_cluster" "rds_cluster" {
   serverlessv2_scaling_configuration {
     min_capacity = var.min_capacity
     max_capacity = var.max_capacity
+  }
+}
+
+resource "aws_rds_cluster_parameter_group" "rds_cluster_parameter_group" {
+  name        = "${local.name}-rds-cluster-parameter-group"
+  family      = var.engine == "aurora-postgresql" ? "aurora-postgresql11" : "aurora-mysql5.7"
+  description = "Parameter group for ${local.name} RDS cluster"
+
+  parameter {
+    name  = "log_statement"
+    value = "all"
+  }
+
+  parameter {
+    name  = "log_min_duration_statement"
+    value = "1"
   }
 }
 
@@ -108,6 +124,7 @@ resource "aws_rds_cluster_instance" "rds_cluster_instance_write" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 186
   performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+  auto_minor_version_upgrade            = true
 
   tags = {
     Name = "${local.name}-write-${count.index + 1}"
@@ -128,6 +145,7 @@ resource "aws_rds_cluster_instance" "rds_cluster_instance_read" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 186
   performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+  auto_minor_version_upgrade            = true
   tags = {
     Name = "${local.name}-read-${count.index + 1}"
   }

@@ -62,7 +62,7 @@ resource "aws_backup_plan" "backup_plan" {
 
 resource "aws_backup_selection" "backup" {
   iam_role_arn = aws_iam_role.aws_backup_service_role.arn
-  name         = "${local.name}-rds"
+  name         = "${local.name}-backup-selection"
   plan_id      = aws_backup_plan.backup_plan.id
   selection_tag {
     type  = "STRINGEQUALS"
