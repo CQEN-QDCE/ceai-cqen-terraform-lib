@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["backup.amazonaws.com"]
+      identifiers = ["*"]
     }
 
     resources = [
