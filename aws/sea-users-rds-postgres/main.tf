@@ -1,6 +1,6 @@
 locals {
   name                    = "${var.identifier}-${var.engine}"
-  all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY"]
+  all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY", "SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
   all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
 
@@ -87,7 +87,7 @@ resource "postgresql_grant" "db_app_admin" {
   database    = postgresql_database.app_db.name
   role        = postgresql_role.admin_user_role.name
   schema      = "public"
-  object_type = "database"
+  object_type = "table"
   privileges  = local.all_privileges_database
 }
 
