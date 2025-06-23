@@ -86,7 +86,7 @@ resource "postgresql_role" "user_role" {
 resource "postgresql_grant" "db_app_admin" {
   provider    = postgresql.admindb
   database    = postgresql_database.app_db.name
-  role        = postgresql_role.user_role.name
+  role        = postgresql_role.admin_user_role.name
   schema      = "public"
   object_type = "schema"
   privileges  = local.all_privileges_database
