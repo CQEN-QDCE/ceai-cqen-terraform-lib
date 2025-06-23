@@ -1,6 +1,6 @@
 locals {
   name                    = "${var.identifier}-${var.engine}"
-  all_privileges_database = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
+  all_privileges_database = ["CREATE", "USAGE"]
   all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
 
@@ -60,14 +60,14 @@ provider "postgresql" {
 }
 
 resource "postgresql_database" "app_db" {
-  provider          = "postgresql.admindb"
+  provider          = postgresql.admindb
   name              = var.db_app_name
   connection_limit  = -1 // -1 means no limit
   allow_connections = true
 }
 
 resource "postgresql_role" "admin_user_role" {
-  provider = "postgresql.admindb"
+  provider = postgresql.admindb
   name            = var.db_admin_user
   login           = true
   create_database = true
@@ -83,16 +83,17 @@ resource "postgresql_role" "user_role" {
 }
 
 resource "postgresql_grant" "db_app_admin" {
-  provider    = "postgresql.admindb"
+  provider    = postgresql.admindb
   database    = postgresql_database.app_db.name
-  role        = postgresql_role.admin_user_role.name
+  role        = postgresql_role.user_role.name
   schema      = "public"
-  object_type = "table"
+  object_type = "schema"
   privileges  = local.all_privileges_database
 }
 
+
 resource "postgresql_grant" "db_app_user" {
-  provider    = "postgresql.admindb"
+  provider    = postgresql.admindb
   database    = postgresql_database.app_db.name
   role        = postgresql_role.user_role.name
   schema      = "public"
