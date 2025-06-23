@@ -1,6 +1,6 @@
 locals {
   name                    = "${var.identifier}-${var.engine}"
-  all_privileges_database = ["CREATE", "SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
+  all_privileges_database = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
   all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
 
