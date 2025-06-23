@@ -67,7 +67,7 @@ resource "postgresql_database" "app_db" {
 }
 
 resource "postgresql_role" "admin_user_role" {
-  provider = postgresql.admindb
+  provider        = postgresql.admindb
   name            = var.db_admin_user
   login           = true
   create_database = true
@@ -76,11 +76,11 @@ resource "postgresql_role" "admin_user_role" {
 }
 
 resource "postgresql_role" "user_role" {
-  provider    = postgresql.admindb
-  name        = var.db_user
-  login       = true
-  password    = random_password.user_db_app_password.result
-  depends_on  = [postgresql_database.app_db]
+  provider   = postgresql.admindb
+  name       = var.db_user
+  login      = true
+  password   = random_password.user_db_app_password.result
+  depends_on = [postgresql_database.app_db]
 }
 
 resource "postgresql_grant" "db_app_admin" {
