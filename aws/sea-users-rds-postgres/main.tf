@@ -68,9 +68,11 @@ resource "postgresql_database" "app_db" {
 
 resource "postgresql_role" "admin_user_role" {
   provider = "postgresql.admindb"
-  name     = var.db_admin_user
-  login    = true
-  password = random_password.admin_db_app_password.result
+  name            = var.db_admin_user
+  login           = true
+  create_database = true
+  create_role     = true
+  password        = random_password.admin_db_app_password.result
 }
 
 resource "postgresql_role" "user_role" {
