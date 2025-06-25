@@ -95,22 +95,6 @@ resource "aws_rds_cluster" "rds_cluster" {
   }
 }
 
-resource "aws_rds_cluster_parameter_group" "rds_cluster_parameter_group" {
-  name        = "${local.name}-rds-cluster-parameter-group"
-  family      = var.engine == "aurora-postgresql" ? "aurora-postgresql11" : "aurora-mysql5.7"
-  description = "Parameter group for ${local.name} RDS cluster"
-
-  parameter {
-    name  = "log_statement"
-    value = "all"
-  }
-
-  parameter {
-    name  = "log_min_duration_statement"
-    value = "1"
-  }
-}
-
 resource "aws_rds_cluster_instance" "rds_cluster_instance_write" {
   count                                 = 1
   identifier_prefix                     = "${local.name}-write-"
