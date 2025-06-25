@@ -1,6 +1,5 @@
 locals {
   name      = "${var.identifier}-${var.engine}"
-  timestamp = formatdate("YYYYMMDDHHmmss", timestamp()) #TODO! remove before merge!!!!
 }
 
 data "aws_kms_key" "rds" {
@@ -17,7 +16,7 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name       = "${local.name}-rds-secret-${local.timestamp}"
+  name       = "${local.name}-rds-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
