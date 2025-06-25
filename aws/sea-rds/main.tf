@@ -1,5 +1,5 @@
 locals {
-  name      = "${var.identifier}-${var.engine}"
+  name = "${var.identifier}-${var.engine}"
 }
 
 data "aws_kms_key" "rds" {
@@ -16,7 +16,7 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name       = "${local.name}-rds-secret"
+  name = "${local.name}-rds-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
