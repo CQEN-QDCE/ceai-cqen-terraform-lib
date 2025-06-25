@@ -18,6 +18,7 @@ resource "random_password" "db_password" {
 
 resource "aws_secretsmanager_secret" "rds_secret" {
   name = "${local.name}-rds-secret-${local.timestamp}"
+  kms_key_id = data.aws_kms_key.rds.arn
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
