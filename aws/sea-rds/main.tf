@@ -1,6 +1,5 @@
 locals {
-  name      = "${var.identifier}-${var.engine}"
-  timestamp = formatdate("YYYYMMDDHHmmss", timestamp())
+  name = "${var.identifier}-${var.engine}"
 }
 
 data "aws_kms_key" "rds" {
@@ -16,8 +15,14 @@ resource "random_password" "db_password" {
   override_special = "!?"
 }
 
+resource "random_string" "secret_name" {
+  length  = 16
+  special = false
+  upper   = false
+}
+
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name = "${local.name}-rds-secret-${local.timestamp}"
+  name = "${local.name}-rds-secret-${random_string.secret_name.result}"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
@@ -82,6 +87,7 @@ resource "aws_rds_cluster" "rds_cluster" {
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
   enabled_cloudwatch_logs_exports     = var.engine == "aurora-postgresql" ? ["postgresql", "instance"] : ["audit", "error", "general", "slowquery"]
   deletion_protection                 = true
+  copy_tags_to_snapshot               = true
   depends_on                          = [aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret]
 
   lifecycle {
@@ -108,6 +114,7 @@ resource "aws_rds_cluster_instance" "rds_cluster_instance_write" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 186
   performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+  auto_minor_version_upgrade            = true
 
   tags = {
     Name = "${local.name}-write-${count.index + 1}"
@@ -128,6 +135,7 @@ resource "aws_rds_cluster_instance" "rds_cluster_instance_read" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 186
   performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+  auto_minor_version_upgrade            = true
   tags = {
     Name = "${local.name}-read-${count.index + 1}"
   }
