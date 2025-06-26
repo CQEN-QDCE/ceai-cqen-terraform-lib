@@ -1,55 +1,55 @@
 variable "identifier" {
-  description = "Unique identifier for the RDS resource."
+  description = "Identifiant unique pour la ressource RDS."
   type        = string
   default     = "keycloak"
 }
 
 variable "project_name" {
-  description = "Project name."
+  description = "Nom du projet."
   type        = string
   default     = ""
 }
 
 variable "cluster_region" {
-  description = "Region to create the cluster."
+  description = "Région où créer le cluster."
   type        = string
   default     = "ca-central-1"
 }
 
 variable "aws_profile" {
   type        = string
-  description = "Optional: If using an SSO connection, specify the SSO profile name in the .aws/config file on the machine executing the deployment."
+  description = "Optionnel : Si vous utilisez une connexion SSO, spécifiez le nom du profil SSO dans le fichier .aws/config sur la machine exécutant le déploiement."
   default     = null
 }
 
 variable "db_master_user" {
-  description = "Primary database user name."
+  description = "Nom d'utilisateur principal de la base de données."
   type        = string
 }
 
 variable "db_user" {
-  description = "Application database user name."
+  description = "Nom d'utilisateur de l'application pour la base de données."
   type        = string
 }
 
 variable "db_admin_user" {
-  description = "Admin user name for the application."
+  description = "Nom d'utilisateur administrateur pour l'application."
   type        = string
 }
 
 variable "db_host" {
-  description = "Database host."
+  description = "Hôte de la base de données."
   type        = string
 }
 
 variable "db_master_password" {
-  description = "Superuser password for the database."
+  description = "Mot de passe superutilisateur pour la base de données."
   type        = string
   sensitive   = true
 }
 
 variable "db_port" {
-  description = "Database connection port."
+  description = "Port de connexion à la base de données."
   type        = number
   default     = 5432
 }
