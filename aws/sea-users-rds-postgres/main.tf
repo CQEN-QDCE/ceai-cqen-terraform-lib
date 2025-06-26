@@ -38,10 +38,12 @@ resource "aws_secretsmanager_secret_version" "user_db_app_secret" {
   secret_id     = aws_secretsmanager_secret.user_db_app_secret.name
   secret_string = <<EOF
   {
+  "DB_NAME": "${var.db_app_name}",
+  "DB_HOST": "${var.db_host}",
+  "DB_ADMIN": "${var.db_admin_user}",
   "DB_ADMIN_PASS": "${random_password.admin_db_app_password.result}",
-  "DB_ADMIN": "${var.db_user}",
-  "DB_PASS": "${random_password.user_db_app_password.result}",
-  "DB_USER": "${var.db_user}"
+  "DB_USER": "${var.db_user}",
+  "DB_PASS": "${random_password.user_db_app_password.result}"
   }
 EOF
   depends_on    = [aws_secretsmanager_secret.user_db_app_secret]

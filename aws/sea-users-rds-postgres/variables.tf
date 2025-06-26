@@ -21,6 +21,18 @@ variable "db_admin_user" {
   sensitive   = true
 }
 
+variable "db_master_user" {
+  description = "Nom d'utilisateur maître de la base de données."
+  type        = string
+  sensitive   = true
+}
+
+variable "db_master_password" {
+  description = "Mot de passe maître de la base de données."
+  type        = string
+  sensitive   = true
+}
+
 variable "db_app_name" {
   description = "Nom de la base de données applicative."
   type        = string
@@ -39,14 +51,3 @@ variable "db_port" {
   default     = 5432
 }
 
-variable "db_master_user" {
-  description = "Nom d'utilisateur maître de la base de données."
-  type        = string
-  sensitive   = true
-}
-
-variable "db_master_password" {
-  description = "Mot de passe maître de la base de données."
-  type        = string
-  sensitive   = true
-}
