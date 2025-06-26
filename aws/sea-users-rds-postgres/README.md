@@ -1,3 +1,8 @@
+# Module: AWS RDS Aurora PostgreSQL
+
+Ce module contient les scripts de déploiement nécessaires à la création et à la gestion des utilisateurs, des rôles et des secrets pour une base de données AWS RDS Aurora PostgreSQL.
+
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -53,3 +58,4 @@ No modules.
 | <a name="output_db_name"></a> [db\_name](#output\_db\_name) | Nom de la base de données créée. |
 | <a name="output_db_user"></a> [db\_user](#output\_db\_user) | Nom d'utilisateur de la base de données. |
 | <a name="output_user_db_secret_arn"></a> [user\_db\_secret\_arn](#output\_user\_db\_secret\_arn) | ARN du secret utilisateur dans AWS Secrets Manager. |
+<!-- END_TF_DOCS -->
