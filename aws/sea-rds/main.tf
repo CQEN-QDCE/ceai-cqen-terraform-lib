@@ -15,8 +15,14 @@ resource "random_password" "db_password" {
   override_special = "!?"
 }
 
+resource "random_string" "secret_name" {
+  length  = 16
+  special = false
+  upper   = false
+}
+
 resource "aws_secretsmanager_secret" "rds_secret" {
-  name = "${local.name}-rds-secret"
+  name = "${local.name}-rds-secret-${random_string.secret_name.result}"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_secret" {
@@ -72,7 +78,7 @@ resource "aws_rds_cluster" "rds_cluster" {
   master_password                     = random_password.db_password.result
   storage_encrypted                   = true
   kms_key_id                          = data.aws_kms_key.rds.arn
-  iam_database_authentication_enabled = true
+  iam_database_authentication_enabled = false
   vpc_security_group_ids              = setunion([var.sea_network.data_security_group.id], var.vpc_db_additional_security_group_ids)
   skip_final_snapshot                 = false
   final_snapshot_identifier           = "${local.name}-snapshot"
