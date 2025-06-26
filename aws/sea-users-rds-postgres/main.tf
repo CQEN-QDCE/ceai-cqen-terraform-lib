@@ -4,10 +4,6 @@ locals {
   all_privileges_table    = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES", "TRIGGER"]
 }
 
-data "aws_kms_key" "rds" {
-  key_id = "alias/aws/rds"
-}
-
 #-------------------------------------------------------------------------------
 # ASM Secret Manager
 resource "random_password" "admin_db_app_password" {

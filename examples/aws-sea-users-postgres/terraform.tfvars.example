@@ -1,0 +1,7 @@
+identifier         = ""
+db_master_user     = ""
+db_user            = ""
+db_admin_user      = ""
+db_host            = ""
+db_master_password = ""
+db_port            = 5432
