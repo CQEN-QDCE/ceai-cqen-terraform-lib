@@ -11,11 +11,13 @@ output "db_name" {
 output "db_user_secret" {
   value       = jsondecode(aws_secretsmanager_secret_version.rds_secret.secret_string)["DB_USER"]
   description = "Référence vers le secret contenant le nom d'usager administrateur de la base de donnée "
+  sensitive = true
 }
 
 output "db_password_secret" {
   value       = jsondecode(aws_secretsmanager_secret_version.rds_secret.secret_string)["DB_PASS"]
   description = "Référence vers le secret contenant le mot de passe administrateur de la base de donnée "
+  sensitive = true
 }
 
 output "cluster_rds_arn" {
