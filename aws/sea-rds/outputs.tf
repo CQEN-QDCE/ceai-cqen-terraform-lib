@@ -9,12 +9,12 @@ output "db_name" {
 }
 
 output "db_user_secret" {
-  value       = jsondecode(data.aws_secretsmanager_secret_version.rds_secret.secret_string)["DB_USER"]
+  value       = jsondecode(data.aws_secretsmanager_secret_version.rds_secret)["DB_USER"]
   description = "Référence vers le secret contenant le nom d'usager administrateur de la base de donnée "
 }
 
 output "db_password_secret" {
-  value       = jsondecode(data.aws_secretsmanager_secret_version.rds_secret.secret_string)["DB_PASS"]
+  value       = jsondecode(data.aws_secretsmanager_secret_version.rds_secret)["DB_PASS"]
   description = "Référence vers le secret contenant le mot de passe administrateur de la base de donnée "
 }
 
