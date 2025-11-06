@@ -102,8 +102,7 @@ resource "aws_rds_cluster" "rds_cluster" {
 
 resource "aws_rds_cluster_instance" "rds_cluster_instance_write" {
   count                                 = 1
-  identifier_prefix                     = "${local.name}-write-"
-  identifier                            = "${count.index + 1}"
+  identifier                            = "${local.name}-write-${count.index + 1}"
   cluster_identifier                    = aws_rds_cluster.rds_cluster.id
   instance_class                        = "db.serverless"
   engine                                = aws_rds_cluster.rds_cluster.engine
@@ -124,8 +123,7 @@ resource "aws_rds_cluster_instance" "rds_cluster_instance_write" {
 
 resource "aws_rds_cluster_instance" "rds_cluster_instance_read" {
   count                                 = 1
-  identifier_prefix                     = "${local.name}-read-"
-  identifier                            = "${count.index + 1}"
+  identifier                            = "${local.name}-read-${count.index + 1}"
   cluster_identifier                    = aws_rds_cluster.rds_cluster.id
   instance_class                        = "db.serverless"
   engine                                = aws_rds_cluster.rds_cluster.engine
