@@ -11,7 +11,7 @@ locals {
 resource "aws_security_group" "nlb_ss_internal_sg" {
   name        = "${local.name}-nlb-${local.ss_suffix}-internal-sg"
   description = "NLB public" # NLB exposé au périmètre (interne ou public selon subnets)
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-nlb-${local.ss_suffix}-internal-sg" })
 }
 
@@ -20,7 +20,7 @@ resource "aws_security_group" "nlb_ss_internal_sg" {
 resource "aws_security_group" "alb_ss_internal_admin_sg" {
   name        = "${local.name}-alb-${local.ss_suffix}-internal-admin-sg"
   description = "ALB interne (admin)"
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-alb-${local.ss_suffix}-internal-admin-sg" })
 }
 
@@ -29,7 +29,7 @@ resource "aws_security_group" "alb_ss_internal_admin_sg" {
 resource "aws_security_group" "eks_ss_internal_sg" {
   name        = "${local.name}-eks-${local.ss_suffix}-internal-sg"
   description = "EC2 trafic interne"
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-eks-${local.ss_suffix}-internal-sg" })
 }
 
@@ -120,7 +120,7 @@ resource "aws_vpc_security_group_egress_rule" "eks_outbound_ss_postgres" {
   ip_protocol                  = "tcp"
   from_port                    = each.value.port
   to_port                      = each.value.port
-  referenced_security_group_id = module.sea_network.data_security_group.id
+  referenced_security_group_id = var.sea_network.data_security_group.id
   description                  = "Allow ${each.value.port}/tcp from internal inbound NLB"
   tags                         = merge(local.common_tags, { Name = each.value.name })
 }

@@ -8,7 +8,7 @@ resource "aws_security_group" "nlb_cs_internal_sg" {
   count       = var.is_central_services ? 1 : 0
   name        = "${local.name}-nlb-cs-internal-sg"
   description = "NLB public" # NLB exposé au périmètre (interne ou public selon subnets)
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-nlb-cs-internal-sg" })
 }
 
@@ -18,7 +18,7 @@ resource "aws_security_group" "alb_cs_internal_admin_sg" {
   count       = var.is_central_services ? 1 : 0
   name        = "${local.name}-alb-cs-internal-admin-sg"
   description = "ALB interne (admin)"
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-alb-cs-internal-admin-sg" })
 }
 
@@ -28,7 +28,7 @@ resource "aws_security_group" "nlb_internal_mgmt_sg" {
   count       = var.is_central_services ? 1 : 0
   name        = "${local.name}-nlb-internal-mgmt-sg"
   description = "NLB interne (mgmt)"
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-nlb-internal-mgmt-sg" })
 }
 
@@ -38,7 +38,7 @@ resource "aws_security_group" "ec2_cs_internal_sg" {
   count       = var.is_central_services ? 1 : 0
   name        = "${local.name}-ec2-cs-internal-sg"
   description = "EC2 trafic interne"
-  vpc_id      = module.sea_network.shared_vpc.id
+  vpc_id      = var.sea_network.shared_vpc.id
   tags        = merge(local.common_tags, { Name = "${local.name}-ec2-cs-internal-sg" })
 }
 
@@ -184,7 +184,7 @@ resource "aws_vpc_security_group_egress_rule" "ec2_to_postgres" {
   from_port         = each.value.port
   to_port           = each.value.port
   # cidr_ipv4                  = "10.20.30.0/24"  # optionnel : restriction directe
-  referenced_security_group_id = module.sea_network.data_security_group.id
+  referenced_security_group_id = var.sea_network.data_security_group.id
   description                  = "Allow ${each.value.port}/tcp to Postgres"
   tags                         = merge(local.common_tags, { Name = each.value.name })
   depends_on                   = [aws_security_group.ec2_cs_internal_sg]

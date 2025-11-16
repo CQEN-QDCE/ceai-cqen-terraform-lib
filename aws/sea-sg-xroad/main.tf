@@ -15,16 +15,6 @@ locals {
   }
 }
 
-module "ceai_lib" {
-  source = "github.com/CQEN-QDCE/ceai-cqen-terraform-lib?ref=v4.2"
-}
-
-module "sea_network" {
-  source                = "./.terraform/modules/ceai_lib/aws/sea-network"
-  workload_account_type = var.workload_account_type
-  aws_profile           = var.aws_profile
-}
-
 ############################
 # Ports & définitions par périmètre
 ############################

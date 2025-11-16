@@ -16,6 +16,10 @@ variable "aws_region" {
 #   default     = null
 # }
 
+variable "sea_network" {
+  description = "Données du module sea-network"
+}
+
 variable "workload_account_type" {
   type        = string
   description = "Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod]"
