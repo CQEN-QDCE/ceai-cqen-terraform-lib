@@ -50,3 +50,9 @@ variable "engine_version" {
   type        = string
   default     = "8.0.mysql_aurora.3.04"
 }
+
+variable "deletion_protection" {
+  description = "(Optionnel) Protection contre la suppression de la base de données."
+  type        = bool
+  default     = true
+}
