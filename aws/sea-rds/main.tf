@@ -86,12 +86,12 @@ resource "aws_rds_cluster" "rds_cluster" {
   preferred_backup_window             = "04:00-04:30"
   preferred_maintenance_window        = "sun:05:00-sun:06:00"
   enabled_cloudwatch_logs_exports     = var.engine == "aurora-postgresql" ? ["postgresql", "instance"] : ["audit", "error", "general", "slowquery"]
-  deletion_protection                 = true
+  deletion_protection                 = var.deletion_protection
   copy_tags_to_snapshot               = true
   depends_on                          = [aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret]
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = var.deletion_protection
   }
 
   serverlessv2_scaling_configuration {
