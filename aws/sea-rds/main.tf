@@ -91,7 +91,7 @@ resource "aws_rds_cluster" "rds_cluster" {
   depends_on                          = [aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret]
 
   lifecycle {
-    prevent_destroy = "${var.deletion_protection}"
+    prevent_destroy = false
   }
 
   serverlessv2_scaling_configuration {
