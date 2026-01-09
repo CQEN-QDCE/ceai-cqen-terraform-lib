@@ -135,7 +135,7 @@ resource "aws_rds_cluster_instance" "rds_cluster_instance_read" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 186
   performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
-  auto_minor_version_upgrade            = true
+  auto_minor_version_upgrade            = false
   tags = {
     Name = "${local.name}-read-${count.index + 1}"
   }
