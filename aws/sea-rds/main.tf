@@ -90,10 +90,6 @@ resource "aws_rds_cluster" "rds_cluster" {
   copy_tags_to_snapshot               = true
   depends_on                          = [aws_db_subnet_group.subnet_group, aws_secretsmanager_secret_version.rds_secret]
 
-  lifecycle {
-    prevent_destroy = false
-  }
-
   serverlessv2_scaling_configuration {
     min_capacity = var.min_capacity
     max_capacity = var.max_capacity
