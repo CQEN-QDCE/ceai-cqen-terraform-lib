@@ -38,19 +38,20 @@ data "aws_iam_policy_document" "github_trust_policy" {
 }
 
 resource "aws_iam_role" "iam_role" {
+  count               = var.create_role ? 1 : 0
   name               = "${local.name}-provider-role"
   assume_role_policy = data.aws_iam_policy_document.github_trust_policy.json
 }
 
 data "aws_iam_policy" "iam_policies" {
-  for_each = toset(var.permissions_policies)
+  for_each = var.create_role ? toset(var.permissions_policies) : toset([])
 
   name = each.value
 }
 
 resource "aws_iam_role_policy_attachment" "idp_github_role_policy_attach" {
-  for_each = data.aws_iam_policy.iam_policies
+  for_each = var.create_role ? data.aws_iam_policy.iam_policies : {}
 
-  role       = aws_iam_role.iam_role.name
+  role       = aws_iam_role.iam_role[0].name
   policy_arn = each.value.arn
 }

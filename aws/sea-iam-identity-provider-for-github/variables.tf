@@ -17,3 +17,8 @@ variable "permissions_policies" {
   description = "Liste des noms des politiques de permissions à attacher au rôle AWS"
   type        = list(string)
 }
+
+variable "create_role" {
+  type    = bool
+  default = true
+}
