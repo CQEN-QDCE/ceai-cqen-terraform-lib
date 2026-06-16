@@ -56,3 +56,9 @@ variable "deletion_protection" {
   type        = bool
   default     = true
 }
+
+variable "common_tags" {
+  description = "Tags communs à appliquer à toutes les ressources"
+  type        = map(string)
+  default     = {} # Optionnel - défaut à un objet vide
+}
