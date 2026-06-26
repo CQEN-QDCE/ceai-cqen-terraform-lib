@@ -35,6 +35,7 @@ Récupère les ressources réseautique du compte de travail spécifié et les ex
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement | `string` | `null` | no |
+| <a name="input_elb_logging_config_rule_name"></a> [elb\_logging\_config\_rule\_name](#input\_elb\_logging\_config\_rule\_name) | Nom de la règle AWS Config utilisée pour récupérer le bucket S3 où déposer les logs d'accès des ELB | `string` | `"ASEA-LZA-ELB_LOGGING_ENABLED"` | no |
 | <a name="input_workload_account_type"></a> [workload\_account\_type](#input\_workload\_account\_type) | Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod] | `string` | n/a | yes |
 
 ## Outputs
@@ -50,7 +51,7 @@ Récupère les ressources réseautique du compte de travail spécifié et les ex
 | <a name="output_data_subnet_b"></a> [data\_subnet\_b](#output\_data\_subnet\_b) | Subnet partagé Data zone b |
 | <a name="output_data_subnets"></a> [data\_subnets](#output\_data\_subnets) | Subnet partagé Data |
 | <a name="output_default_internal_ssl_certificate"></a> [default\_internal\_ssl\_certificate](#output\_default\_internal\_ssl\_certificate) | Certificat SSL interne par défaut du compte |
-| <a name="output_elb_access_log_bucket_name"></a> [elb\_access\_log\_bucket\_name](#output\_elb\_access\_log\_bucket\_name) | Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB\_LOGGING\_ENABLED |
+| <a name="output_elb_access_log_bucket_name"></a> [elb\_access\_log\_bucket\_name](#output\_elb\_access\_log\_bucket\_name) | Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config ELB configurée |
 | <a name="output_s3_kms_encryption_key_arn"></a> [s3\_kms\_encryption\_key\_arn](#output\_s3\_kms\_encryption\_key\_arn) | Arn de la clé KMS pour encrypter un bucket S3 pour satisfaire la règle AWS Config :S3\_BUCKET\_SERVER\_SIDE\_ENCRYPTION\_ENABLED |
 | <a name="output_shared_vpc"></a> [shared\_vpc](#output\_shared\_vpc) | VPC partagé du compte de travail |
 | <a name="output_web_security_group"></a> [web\_security\_group](#output\_web\_security\_group) | Groupe de sécurité partagé Web |

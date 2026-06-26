@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Paramètres de la commande
-ARGS+=( --config-rule-names ASEA-LZA-ELB_LOGGING_ENABLED )
+CONFIG_RULE_NAME="${2:-ASEA-LZA-ELB_LOGGING_ENABLED}"
+
+ARGS+=( --config-rule-names "${CONFIG_RULE_NAME}" )
 
 ARGS+=( --query 'ConfigRules[0].InputParameters' )
 
