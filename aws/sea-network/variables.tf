@@ -9,3 +9,9 @@ variable "workload_account_type" {
   type        = string
   description = "Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod]"
 }
+
+variable "internal_ssl_certificate_domain" {
+  type        = string
+  description = "Domaine du certificat ACM interne à rechercher"
+  default     = "*.asea.cqen.org"
+}

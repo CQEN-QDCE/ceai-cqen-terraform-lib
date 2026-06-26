@@ -60,7 +60,7 @@ data "aws_security_group" "data_security_group" {
 
 data "aws_acm_certificate" "default_internal_ssl_certificate" {
   count  = var.workload_account_type == "Sandbox" ? 0 : 1
-  domain = "*.asea.cqen.org"
+  domain = var.internal_ssl_certificate_domain
 }
 
 data "external" "config_rule_elb_logging_enabled" {
