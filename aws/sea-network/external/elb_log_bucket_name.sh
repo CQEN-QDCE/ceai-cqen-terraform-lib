@@ -1,12 +1,23 @@
 #!/bin/bash
 
-# Paramètres de la commande
-ARGS+=( --config-rule-names ASEA-LZA-ELB_LOGGING_ENABLED )
+# Paramètres de la commande.
+# Compatibilité:
+# - avec profil:    script.sh <aws_profile> <config_rule_name>
+# - sans profil CI: script.sh <config_rule_name>
+AWS_PROFILE_ARG="${1:-}"
+CONFIG_RULE_NAME="${2:-ASEA-LZA-ELB_LOGGING_ENABLED}"
+
+if [ -z "${2:-}" ] && [ -n "${1:-}" ]; then
+    AWS_PROFILE_ARG=""
+    CONFIG_RULE_NAME="${1}"
+fi
+
+ARGS+=( --config-rule-names "${CONFIG_RULE_NAME}" )
 
 ARGS+=( --query 'ConfigRules[0].InputParameters' )
 
-if [ "${1}" ]; then
-    ARGS+=( --profile "${1}" )
+if [ "${AWS_PROFILE_ARG}" ]; then
+    ARGS+=( --profile "${AWS_PROFILE_ARG}" )
 fi
 
 #Execution
