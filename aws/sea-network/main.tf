@@ -64,8 +64,15 @@ data "aws_acm_certificate" "default_internal_ssl_certificate" {
 }
 
 data "external" "config_rule_elb_logging_enabled" {
-  count   = var.workload_account_type == "Sandbox" ? 0 : 1
-  program = ["${path.module}/external/elb_log_bucket_name.sh", var.aws_profile == null ? "" : var.aws_profile, var.elb_logging_config_rule_name]
+  count = var.workload_account_type == "Sandbox" ? 0 : 1
+  program = var.aws_profile == null || trimspace(var.aws_profile) == "" ? [
+    "${path.module}/external/elb_log_bucket_name.sh",
+    var.elb_logging_config_rule_name
+    ] : [
+    "${path.module}/external/elb_log_bucket_name.sh",
+    var.aws_profile,
+    var.elb_logging_config_rule_name
+  ]
 }
 
 data "external" "config_rule_s3_bucket_encryption_enabled" {
