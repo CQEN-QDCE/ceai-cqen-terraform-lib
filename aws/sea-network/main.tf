@@ -1,6 +1,10 @@
+locals {
+  effective_network_workload_prefix = coalesce(var.network_workload_prefix, var.workload_account_type)
+}
+
 data "aws_vpc" "shared_vpc" {
   tags = {
-    Name = "${var.workload_account_type}_vpc"
+    Name = "${local.effective_network_workload_prefix}_vpc"
   }
 }
 
@@ -12,7 +16,7 @@ data "aws_subnets" "web_subnets" {
 
   filter {
     name   = "tag:Name"
-    values = ["Web_${var.workload_account_type}_aza_net", "Web_${var.workload_account_type}_azb_net", "Web_${var.workload_account_type}_azd_net"]
+    values = ["Web_${local.effective_network_workload_prefix}_aza_net", "Web_${local.effective_network_workload_prefix}_azb_net", "Web_${local.effective_network_workload_prefix}_azd_net"]
   }
 }
 
@@ -24,7 +28,7 @@ data "aws_subnets" "app_subnets" {
 
   filter {
     name   = "tag:Name"
-    values = ["App_${var.workload_account_type}_aza_net", "App_${var.workload_account_type}_azb_net", "App_${var.workload_account_type}_azd_net"]
+    values = ["App_${local.effective_network_workload_prefix}_aza_net", "App_${local.effective_network_workload_prefix}_azb_net", "App_${local.effective_network_workload_prefix}_azd_net"]
   }
 }
 
@@ -36,7 +40,7 @@ data "aws_subnets" "data_subnets" {
 
   filter {
     name   = "tag:Name"
-    values = ["Data_${var.workload_account_type}_aza_net", "Data_${var.workload_account_type}_azb_net", "Data_${var.workload_account_type}_azd_net"]
+    values = ["Data_${local.effective_network_workload_prefix}_aza_net", "Data_${local.effective_network_workload_prefix}_azb_net", "Data_${local.effective_network_workload_prefix}_azd_net"]
   }
 }
 
@@ -87,7 +91,7 @@ data "aws_subnet" "web_subnet_a" {
   }
 
   tags = {
-    Name = "Web_${var.workload_account_type}_aza_net"
+    Name = "Web_${local.effective_network_workload_prefix}_aza_net"
   }
 }
 
@@ -98,7 +102,7 @@ data "aws_subnet" "web_subnet_b" {
   }
 
   tags = {
-    Name = "Web_${var.workload_account_type}_azb_net"
+    Name = "Web_${local.effective_network_workload_prefix}_azb_net"
   }
 }
 
@@ -110,7 +114,7 @@ data "aws_subnet" "data_subnet_a" {
   }
 
   tags = {
-    Name = "Data_${var.workload_account_type}_aza_net"
+    Name = "Data_${local.effective_network_workload_prefix}_aza_net"
   }
 }
 
@@ -121,7 +125,7 @@ data "aws_subnet" "data_subnet_b" {
   }
 
   tags = {
-    Name = "Data_${var.workload_account_type}_azb_net"
+    Name = "Data_${local.effective_network_workload_prefix}_azb_net"
   }
 }
 
@@ -132,7 +136,7 @@ data "aws_subnet" "app_subnet_a" {
   }
 
   tags = {
-    Name = "App_${var.workload_account_type}_aza_net"
+    Name = "App_${local.effective_network_workload_prefix}_aza_net"
   }
 }
 
@@ -143,6 +147,6 @@ data "aws_subnet" "app_subnet_b" {
   }
 
   tags = {
-    Name = "App_${var.workload_account_type}_azb_net"
+    Name = "App_${local.effective_network_workload_prefix}_azb_net"
   }
 }

@@ -7,7 +7,7 @@ variable "aws_profile" {
 
 variable "workload_account_type" {
   type        = string
-  description = "Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod]"
+  description = "Type logique de compte de travail ASEA [Sandbox, Dev, Prod]"
 }
 
 variable "internal_ssl_certificate_domain" {
@@ -25,4 +25,11 @@ variable "elb_logging_config_rule_name" {
     condition     = length(trimspace(var.elb_logging_config_rule_name)) > 0
     error_message = "Le nom de la règle AWS Config ELB ne peut pas être vide."
   }
+}
+
+variable "network_workload_prefix" {
+  type        = string
+  description = "Préfixe utilisé pour résoudre les ressources réseau AWS; si null, workload_account_type est utilisé"
+  default     = null
+  nullable    = true
 }
