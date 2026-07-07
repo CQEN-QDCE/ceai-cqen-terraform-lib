@@ -35,7 +35,8 @@ Récupère les ressources réseautique du compte de travail spécifié et les ex
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | Optionnel, Si une connexion SSO est utilisée, spécifier le nom du profil SSO dans le fichier .aws/config du poste qui exécute le déploiement | `string` | `null` | no |
-| <a name="input_workload_account_type"></a> [workload\_account\_type](#input\_workload\_account\_type) | Type de compte de travail ASEA (Prefix du VPC partagé) [Sandbox, Dev, Prod] | `string` | n/a | yes |
+| <a name="input_network_workload_prefix"></a> [network\_workload\_prefix](#input\_network\_workload\_prefix) | Préfixe utilisé pour résoudre les ressources réseau AWS; si null, workload_account_type est utilisé | `string` | `null` | no |
+| <a name="input_workload_account_type"></a> [workload\_account\_type](#input\_workload\_account\_type) | Type logique de compte de travail ASEA [Sandbox, Dev, Prod] | `string` | n/a | yes |
 
 ## Outputs
 
