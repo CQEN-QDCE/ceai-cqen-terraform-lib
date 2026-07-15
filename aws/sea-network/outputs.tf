@@ -40,7 +40,7 @@ output "default_internal_ssl_certificate" {
 
 output "elb_access_log_bucket_name" {
   value       = var.workload_account_type == "Sandbox" ? null : data.external.config_rule_elb_logging_enabled[0].result.s3BucketNames
-  description = "Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config :ELB_LOGGING_ENABLED"
+  description = "Nom du bucket S3 où déposer les logs d'accès des ELB pour satisfaire la règle AWS Config ELB configurée"
 }
 
 /*
