@@ -20,6 +20,11 @@ output "db_password_secret" {
   sensitive   = true
 }
 
+output "db_secret_name" {
+  value       = aws_secretsmanager_secret.rds_secret.name
+  description = "Nom du secret AWS Secrets Manager contenant les identifiants administrateur de la base de données"
+}
+
 output "cluster_rds_arn" {
   value       = aws_rds_cluster.rds_cluster.arn
   description = "ARN du cluster  dans RDS"
