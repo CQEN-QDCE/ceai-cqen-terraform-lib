@@ -20,7 +20,7 @@ output "db_password_secret" {
   sensitive   = true
 }
 
-output "db_credentials_secret_name" {
+output "db_secret_name" {
   value       = aws_secretsmanager_secret.rds_secret.name
   description = "Nom du secret AWS Secrets Manager contenant les identifiants administrateur de la base de données"
 }
